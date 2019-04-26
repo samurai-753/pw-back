@@ -1,0 +1,36 @@
+import json
+import random
+
+class Aluno:
+
+    def __init__(self, idx, nome, email, telefone, resumo, categorias):
+        self.idx = idx
+        self.nome = nome
+        self.email = email
+        self.telefone = telefone
+        self.resumo = resumo
+        self.categorias = categorias
+    
+    def set_senha(self, senha):
+        self.senha = senha
+
+    def set_from_dict(self, data):
+        self.nome = data['nome']
+        self.email = data['email']
+        self.telefone = data['telefone']
+        self.resumo = data['resumo']
+        self.categorias = data['categorias']
+
+    @staticmethod
+    def from_dict(data):
+        idx = random.randrange(0x0000, 0xffff)
+        p = Aluno(
+            idx, data['nome'], data['email'],
+            data['telefone'], data['resumo'], data['categorias']
+        )
+        p.set_senha(data['senha'])
+
+        return p
+    
+    def __repr__(self):
+        return '<Aluno idx={} nome={} />'.format(self.idx, self.nome)

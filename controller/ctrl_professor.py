@@ -5,8 +5,8 @@ class CtrlProfessor:
 
     def __init__(self):
         self.professores = [
-            Professor(1, 'Dudei', 'dudu@samurai.io', '(99) 123-123', 'dcc-01', ['bacharel','phd']),
-            Professor(43, 'Thuzax', 'Thuzax@samurai.io', '(99) 433-334', 'dcc-43', ['bacharel','phd']),
+            #Professor(1, 'Dudei', 'dudu@samurai.io', '(99) 123-123', 'dcc-01', ['bacharel','phd']),
+            #Professor(43, 'Thuzax', 'Thuzax@samurai.io', '(99) 433-334', 'dcc-43', ['bacharel','phd']),
         ]
 
     def get_professores(self):
@@ -19,6 +19,15 @@ class CtrlProfessor:
 
         return p[0]
     
+    def add_professor_p(self, p):
+        l = [ x for x in self.professores if x.idx == p.idx ]
+        if len(l) > 0:
+            return False
+        
+        self.professores.append(p)
+
+        return p.idx
+
     def add_professor(self, data):
         p = Professor.from_dict(data)
 
