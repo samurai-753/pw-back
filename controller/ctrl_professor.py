@@ -1,4 +1,4 @@
-from model.professor import Professor
+from model import Professor
 from pprint import pprint
 
 class CtrlProfessor:

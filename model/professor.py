@@ -1,18 +1,17 @@
-import json
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import random
+from .pessoa import Pessoa
 
-class Professor:
 
-    def __init__(self, idx, nome, email, telefone, sala, titulos):
-        self.idx = idx
-        self.nome = nome
-        self.email = email
-        self.telefone = telefone
-        self.sala = sala
-        self.titulos = titulos
+class Professor(Pessoa):
     
-    def set_senha(self, senha):
-        self.senha = senha
+    def __init__(self, idx, nome, email, telefone, sala, titulos):
+        super().__init__(idx, nome, email, telefone)
+
+        self.sala = sala
+        self.formacao = titulos
 
     def set_from_dict(self, data):
         self.nome = data['nome']
@@ -28,9 +27,8 @@ class Professor:
             idx, data['nome'], data['email'],
             data['telefone'], data['sala'], data['titulos']
         )
-        p.set_senha(data['senha'])
 
         return p
-    
+
     def __repr__(self):
         return '<Professor idx={} nome={} />'.format(self.idx, self.nome)

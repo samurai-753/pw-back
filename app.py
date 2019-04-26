@@ -1,6 +1,6 @@
 import json
 from flask import Flask, jsonify, abort, request
-from controller.ctrl_professor import CtrlProfessor
+from controller import CtrlProfessor
 
 
 app = Flask(__name__)
