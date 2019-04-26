@@ -36,13 +36,11 @@ class CtrlProfessor:
             return False
         
         self.professores.append(p)
-        pprint(self.professores)
 
         return p.idx
     
     def update_professor(self, idx, data):
         l = [ x for x in self.professores if x.idx == idx ]
-        pprint(l)
         if len(l) < 1:
             return False
 
@@ -52,6 +50,10 @@ class CtrlProfessor:
         return True
     
     def delete_professor(self, idx):
-        self.professores = [ x for x in self.professores if x.idx != idx ]
+        l = [ x for x in self.professores if x.idx != idx ]
 
+        if len(l) == len(self.professores):
+            return False
+        
+        self.professores = l
         return True

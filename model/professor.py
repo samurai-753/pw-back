@@ -11,7 +11,7 @@ class Professor(Pessoa):
         super().__init__(idx, nome, email, telefone)
 
         self.sala = sala
-        self.formacao = titulos
+        self.titulos = titulos
 
     def set_from_dict(self, data):
         self.nome = data['nome']
