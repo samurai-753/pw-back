@@ -11,6 +11,7 @@ class TestCtrlProfessor(unittest.TestCase):
         ]
         for p in self.professores:
             self.ctrl.add_professor_p(p)
+        
     
     def test__get_professores__professores(self):
         professores = self.ctrl.get_professores()
