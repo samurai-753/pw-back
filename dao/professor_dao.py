@@ -9,7 +9,12 @@ class ProfessorDAO(object):
         db_fake = []
 
         def add_professor(self, professor):
+            for p in self.db_fake:
+                if(p.idx == professor.idx):
+                    return False
+            
             self.db_fake.append(professor)
+            return professor.idx
 
         def update_professor(self, professor):
             edit_pos = -1
@@ -25,20 +30,29 @@ class ProfessorDAO(object):
             return True
     
         def delete_professor(self, idx):
-            self.db_fake = [ p for p in self.db_fake if p.idx != idx ]
+            temp = [ p for p in self.db_fake if p.idx != idx ]
             
+            if(len(temp) == len(self.db_fake)):
+                return False
+
+            self.db_fake = temp
             return True
 
-        def get_professors(self):
+        def get_professores(self):
             return self.db_fake
 
         def get_professor(self, idx):
             for professor in self.db_fake:
                 if professor.idx == idx:
                     return professor
+            
+            return None
         
 
 
     def __init__(self):
         if(self.instancia == None):
             self.instancia = self.__ProfessorDAO()
+
+    def __getattr__(self, name):
+        return getattr(self.instancia, name)

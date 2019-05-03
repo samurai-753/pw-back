@@ -41,7 +41,6 @@ class CtrlAluno:
 
     def update_aluno(self, idx, data):
         l = [ x for x in self.alunos if x.idx == idx ]
-        pprint(l)
         if len(l) < 1:
             return False
 

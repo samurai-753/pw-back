@@ -32,3 +32,10 @@ class Professor(Pessoa):
 
     def __repr__(self):
         return '<Professor idx={} nome={} />'.format(self.idx, self.nome)
+
+    def __eq__(self, professor):
+        for key, value in self.__dict__.items():
+            if(professor.__dict__[key] != value):
+                return False
+
+        return True

@@ -1,11 +1,15 @@
 import unittest
 from controller import CtrlProfessor
+from dao import ProfessorDAO
 from model import Professor
 
 class TestCtrlProfessor(unittest.TestCase):
 
     def setUp(self):
+        ProfessorDAO().db_fake = []
+
         self.ctrl = CtrlProfessor()
+
         self.professores = [
             Professor(1, 'Dudei', 'dudu@samurai.io', '(99) 123-123', 'dcc-01', ['bacharel','phd'])
         ]
@@ -15,7 +19,7 @@ class TestCtrlProfessor(unittest.TestCase):
     
     def test__get_professores__professores(self):
         professores = self.ctrl.get_professores()
-        self.assertEqual(len(professores), 1, 'Deve ter apenas um professor')
+        self.assertEqual(len(professores), len(ProfessorDAO().db_fake), 'Deve ter apenas um professor')
         self.assertIsInstance(professores[0], Professor, 'Deve conter um objeto da classe Professor')
 
     def test__get_professor__professor(self):
