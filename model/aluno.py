@@ -26,3 +26,10 @@ class Aluno(Pessoa):
 
     def __repr__(self):
         return '<Aluno idx={} nome={} />'.format(self.idx, self.nome)
+
+    def __eq__(self, aluno):
+        for key, value in self.__dict__.items():
+            if(aluno.__dict__[key] != value):
+                return False
+
+        return True
