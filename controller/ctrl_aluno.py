@@ -30,7 +30,7 @@ class CtrlAluno:
         def update_aluno(self, idx, data):
             a = Aluno.from_dict(data)
             a.idx = idx
-            return AlunoDAO().update_aluno(idx, data)
+            return AlunoDAO().update_aluno(a)
         
         def delete_aluno(self, idx):
             return AlunoDAO().delete_aluno(idx)
