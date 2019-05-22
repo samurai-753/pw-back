@@ -14,7 +14,7 @@ class TestCtrlProfessor(unittest.TestCase):
             Professor(1, 'Dudei', 'dudu@samurai.io', '(99) 123-123', 'dcc-01', ['bacharel','phd'])
         ]
         for p in self.professores:
-            self.ctrl.add_professor_p(p)
+            self.ctrl.add_professor_instanciado(p)
         
     
     def test__get_professores__professores(self):
@@ -30,9 +30,9 @@ class TestCtrlProfessor(unittest.TestCase):
         professor = self.ctrl.get_professor(66)
         self.assertAlmostEqual(professor, None, 'Não deveria retornar um professor')
     
-    def test__add_professor_p__professor(self):
+    def test__add_professor_instanciado__professor(self):
         p = Professor(43, 'Thuzax', 'Thuzax@samurai.io', '(99) 433-334', 'dcc-43', ['bacharel','phd'])
-        self.ctrl.add_professor_p(p)
+        self.ctrl.add_professor_instanciado(p)
 
         p_ = self.ctrl.get_professor(43)
         self.assertEqual(p, p_, 'Deveria ser o mesmo objeto')

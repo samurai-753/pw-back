@@ -1,5 +1,6 @@
 import unittest
 from controller import CtrlAluno
+from dao import AlunoDAO
 from model import Aluno
 
 class TestCtrlAluno(unittest.TestCase):
@@ -10,10 +11,12 @@ class TestCtrlAluno(unittest.TestCase):
             Aluno(2, 'ribolive', 'dudu@samurai.io', '(99) 123-7070', 'Menino pequeno'),
         ]
         for p in self.alunos:
-            self.ctrl.add_aluno_p(p)
+            self.ctrl.add_aluno_instanciado(p)
     
     def test__get_alunos__alunos(self):
+        AlunoDAO().db_fake = []
         alunos = self.ctrl.get_alunos()
+
         self.assertEqual(len(alunos), 1, 'Deve ter apenas um aluno')
         self.assertIsInstance(alunos[0], Aluno, 'Deveria conter um objeto da classe aluno')
 
@@ -25,9 +28,9 @@ class TestCtrlAluno(unittest.TestCase):
     #     professor = self.ctrl.get_professor(66)
     #     self.assertAlmostEqual(professor, None, 'Não deveria retornar um professor')
     
-    # def test__add_professor_p__professor(self):
+    # def test__add_professor_instanciado__professor(self):
     #     p = Professor(43, 'Thuzax', 'Thuzax@samurai.io', '(99) 433-334', 'dcc-43', ['bacharel','phd'])
-    #     self.ctrl.add_professor_p(p)
+    #     self.ctrl.add_professor_instanciado(p)
 
     #     p_ = self.ctrl.get_professor(43)
     #     self.assertEqual(p, p_, 'Deveria ser o mesmo objeto')

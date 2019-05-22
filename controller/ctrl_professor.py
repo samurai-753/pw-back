@@ -13,7 +13,7 @@ class CtrlProfessor:
         def get_professor(self, idx):
             return ProfessorDAO().get_professor(idx)
 
-        def add_professor_p(self, p):
+        def add_professor_instanciado(self, p):
             return ProfessorDAO().add_professor(p)
 
         def add_professor(self, data):
