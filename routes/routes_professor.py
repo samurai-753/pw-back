@@ -8,6 +8,30 @@ ctrl_professor = CtrlProfessor()
 
 @app_professor.route('/api/professor/', methods=['GET'])
 def get_professores():
+    """
+    @api {get} /api/professor Recuperar lista de professores
+    @apiVersion 1.0.0
+    @apiName GetProfessor
+    @apiGroup Professor
+
+    @apiDescription Recupera a lista de todos os professores castrados no
+    sistema
+
+    @apiSuccess {Number} code 200
+    @apiSuccess {Object} data Lista de <code>professor</code>
+
+    @apiSuccessExample Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "status": 200,
+            "data": {
+                "name": "treta",
+                "Sonas": [],
+                "idx": 9
+            }
+        }
+    """
+
     professores = ctrl_professor.get_professores()
     if professores == None:
         return jsonify(success=False)
