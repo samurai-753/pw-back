@@ -8,6 +8,11 @@ pylint = "*"
 
 [packages]
 flask = "*"
+flask-marshmallow = "*"
+flask-sqlalchemy = "*"
+marshmallow-sqlalchemy = "*"
+pymysql = "*"
+nose2 = "*"
 
 [requires]
 python_version = "3"
