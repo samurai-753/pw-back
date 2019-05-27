@@ -9,8 +9,8 @@ ctrl_professor = CtrlProfessor()
 @app_professor.route('/api/professor/', methods=['GET'])
 def get_professores():
     """
-    @api {get} /api/professor Recuperar lista de professores
-    @apiVersion 1.0.0
+    @api {get} /api/professor Recupera professores
+    @apiVersion 1.0.0-a
     @apiName GetProfessor
     @apiGroup Professor
 
@@ -18,17 +18,20 @@ def get_professores():
     sistema
 
     @apiSuccess {Number} code 200
-    @apiSuccess {Object} data Lista de <code>professor</code>
+    @apiSuccess {Object[]} data Lista de <code>professor</code>
 
     @apiSuccessExample Success-Response:
         HTTP/1.1 200 OK
         {
             "status": 200,
-            "data": {
-                "name": "treta",
-                "Sonas": [],
-                "idx": 9
-            }
+            "data": [{
+                "idx": 1,
+                "nome": "Durelli",
+                "email": "durelli@dcc.ufla.br",
+                ...
+            }, {
+                ...
+            }]
         }
     """
 
@@ -42,6 +45,19 @@ def get_professores():
 
 @app_professor.route('/api/professor/<idx>', methods=['GET'])
 def get_professor(idx):
+    """
+    @api {get} /api/professor/:id Recupera professor
+    @apiVersion 1.0.0-a
+    @apiName GetProfessorId
+    @apiGroup Professor
+
+    @apiDescription Recupera o professor com o <code>id</code> fornecido
+
+    @apiUse ProfessorExemplo
+
+    @apiUse ProfessorNotFoundError
+    """
+
     idx = int(idx)
     p = ctrl_professor.get_professor(idx)
     if p == None:
@@ -52,6 +68,20 @@ def get_professor(idx):
 
 @app_professor.route('/api/professor', methods=['POST'])
 def post_professor():
+    """
+    @api {post} /api/professor/:id Novo professor
+    @apiVersion 1.0.0-a
+    @apiName PostProfessor
+    @apiGroup Professor
+
+    @apiDescription Post um novo professor
+
+    @apiUse ObjetoPessoa
+    @apiUse ObjetoProfessor
+
+    @apiUse ProfessorExemplo
+    """
+
     data = request.get_json()
     try:
         r = ctrl_professor.add_professor(data)
@@ -63,6 +93,20 @@ def post_professor():
 
 @app_professor.route('/api/professor/<idx>', methods=['PUT'])
 def update_professor(idx):
+    """
+    @api {put} /api/professor/:id Atualiza professor
+    @apiVersion 1.0.0-a
+    @apiName PutProfessor
+    @apiGroup Professor
+
+    @apiDescription Atualiza um professor existente
+
+    @apiUse ObjetoPessoaMod
+    @apiUse ObjetoProfessorMod
+
+    @apiUse ProfessorNotFoundError
+    """
+
     idx = int(idx)
     data = request.get_json()
     r = ctrl_professor.update_professor(idx, data)
@@ -72,6 +116,20 @@ def update_professor(idx):
 
 @app_professor.route('/api/professor/<idx>', methods=['DELETE'])
 def delete_professor(idx):
+    """
+    @api {delete} /api/professor/:id Deleta professor
+    @apiVersion 1.0.0-a
+    @apiName DeleteProfessor
+    @apiGroup Professor
+
+    @apiDescription Deleta um professor existente
+
+    @apiUse ObjetoPessoaMod
+    @apiUse ObjetoProfessorMod
+
+    @apiUse ProfessorNotFoundError
+    """
+
     idx = int(idx)
     r = ctrl_professor.delete_professor(idx)
     return jsonify(success=r)
