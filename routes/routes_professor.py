@@ -24,14 +24,20 @@ def get_professores():
         HTTP/1.1 200 OK
         {
             "status": 200,
-            "data": [{
-                "idx": 1,
-                "nome": "Durelli",
-                "email": "durelli@dcc.ufla.br",
-                ...
-            }, {
-                ...
-            }]
+            "data": [
+                {
+                    "idx": 1,
+                    "nome": "Durelli",
+                    "email": "durelli@dcc.ufla.br",
+                    "telefone": "35912345678",
+                    "sala": "DCC26",
+                    "extensões": [
+                        "Bacharel e ciência da computção, UFLA 2007"
+                    ]
+                }, {
+                    ...
+                }
+            ]
         }
     """
 
@@ -69,12 +75,12 @@ def get_professor(idx):
 @app_professor.route('/api/professor', methods=['POST'])
 def post_professor():
     """
-    @api {post} /api/professor/:id Novo professor
+    @api {post} /api/professor/:id Adiciona professor
     @apiVersion 1.0.0-a
     @apiName PostProfessor
     @apiGroup Professor
 
-    @apiDescription Post um novo professor
+    @apiDescription Adiciona um novo professor
 
     @apiUse ObjetoPessoa
     @apiUse ObjetoProfessor
