@@ -46,7 +46,7 @@ def get_professores():
 
     return jsonify(
         status=200,
-        data={}
+        data=ctrl_professor.get_professores()
     )
 
 
@@ -67,7 +67,7 @@ def get_professor(idx):
 
     return jsonify(
         status=200,
-        data={}
+        data=ctrl_professor.get_professor(idx)
     )
 
 
@@ -92,16 +92,9 @@ def post_professor():
     nome = data['nome']
     email = data['email']
     telefone = data.get('telefone')
-
-    pessoa = Pessoa(nome, email, telefone)
-    pessoa_dict = ctrl_pessoa.add_pessoa(pessoa)
-
     sala = data['sala']
 
-    professor = Professor(pessoa_dict['idx'], sala)
-    professor_dict = ctrl_professor.add_professor(professor)
-
-    professor.detalhes = pessoa
+    professor_dict = ctrl_professor.add_professor(nome, email, telefone, sala)
 
     return jsonify(
         status=200,
@@ -109,12 +102,12 @@ def post_professor():
     )
 
 
-@app_professor.route('/api/professor/<idx>', methods=['PUT'])
+@app_professor.route('/api/professor/<idx>', methods=['PATCH'])
 def update_professor(idx):
     """
-    @api {put} /api/professor/:id Atualiza professor
+    @api {patch} /api/professor/:id Atualiza professor
     @apiVersion 1.0.0-a
-    @apiName PutProfessor
+    @apiName PatchProfessor
     @apiGroup Professor
 
     @apiDescription Atualiza um professor existente
@@ -125,9 +118,18 @@ def update_professor(idx):
     @apiUse ProfessorNotFoundError
     """
 
+    data = request.get_json()
+    
+    nome = data.get('nome')
+    email = data.get('email')
+    telefone = data.get('telefone')
+    sala = data.get('sala')
+
+    professor_dict = ctrl_professor.update_professor(idx, nome, email, telefone, sala)
+
     return jsonify(
         status=200,
-        data={}
+        data=professor_dict
     )
 
 
@@ -147,6 +149,7 @@ def delete_professor(idx):
     @apiUse ProfessorNotFoundError
     """
 
+    ctrl_professor.delete_professor(idx)
     return jsonify(
         status=200,
         data={}

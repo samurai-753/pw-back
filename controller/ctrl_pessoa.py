@@ -26,6 +26,12 @@ class CtrlPessoa:
                 error='IntegrityError',
                 message=str(e)
             )
+    
+    def delete_pessoa(self, idx):
+        pessoa = Pessoa.query.get(idx)
+
+        db.session.delete(pessoa)
+        db.session.commit()
 
 
     def dump_pessoa(self, pessoa):

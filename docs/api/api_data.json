@@ -183,7 +183,7 @@
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
+            "optional": true,
             "field": "telefone",
             "description": "<p>Telefone da pessoa</p>"
           },
@@ -445,90 +445,11 @@
     }
   },
   {
-    "type": "post",
-    "url": "/api/professor/:id",
-    "title": "Adiciona professor",
-    "version": "1.0.0-a",
-    "name": "PostProfessor",
-    "group": "Professor",
-    "description": "<p>Adiciona um novo professor</p>",
-    "filename": "./routes/routes_professor.py",
-    "groupTitle": "Professor",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "nome",
-            "description": "<p>Nome da pessoa</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>Email da pessoa</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "telefone",
-            "description": "<p>Telefone da pessoa</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "sala",
-            "description": "<p>Sala do professor</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Object[]",
-            "optional": false,
-            "field": "titulos",
-            "description": "<p>Titulos do professor</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "code",
-            "description": "<p>200</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "data",
-            "description": "<p><code>professor</code> com <code>id</code> fornecido</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            \"Bacharel e ciência da computção, UFLA 2007\"\n        ]\n    }\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "put",
+    "type": "patch",
     "url": "/api/professor/:id",
     "title": "Atualiza professor",
     "version": "1.0.0-a",
-    "name": "PutProfessor",
+    "name": "PatchProfessor",
     "group": "Professor",
     "description": "<p>Atualiza um professor existente</p>",
     "filename": "./routes/routes_professor.py",
@@ -583,6 +504,85 @@
         {
           "title": "Error-Response:",
           "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"ProfessorNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/api/professor/:id",
+    "title": "Adiciona professor",
+    "version": "1.0.0-a",
+    "name": "PostProfessor",
+    "group": "Professor",
+    "description": "<p>Adiciona um novo professor</p>",
+    "filename": "./routes/routes_professor.py",
+    "groupTitle": "Professor",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nome",
+            "description": "<p>Nome da pessoa</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email da pessoa</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "telefone",
+            "description": "<p>Telefone da pessoa</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "sala",
+            "description": "<p>Sala do professor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object[]",
+            "optional": false,
+            "field": "titulos",
+            "description": "<p>Titulos do professor</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p><code>professor</code> com <code>id</code> fornecido</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            \"Bacharel e ciência da computção, UFLA 2007\"\n        ]\n    }\n}",
           "type": "json"
         }
       ]
