@@ -7,7 +7,7 @@
 
 @apiParam {String} nome Nome da pessoa
 @apiParam {String} email Email da pessoa
-@apiParam {String} telefone Telefone da pessoa
+@apiParam {String} [telefone] Telefone da pessoa
 """
 
 """
