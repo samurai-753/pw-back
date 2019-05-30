@@ -118,3 +118,53 @@ fornecido não foi encontrado
         "message": "AlunoNotFound"
     }
 """
+
+# ============================================================================
+# Disciplina
+# ============================================================================
+
+"""
+@apiDefine DisciplinaExemplo
+
+@apiSuccess {Number} code 200
+@apiSuccess {Object} data <code>Disciplina</code> com <code>id</code> fornecido
+
+@apiSuccessExample Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "idx": 485,
+            "tipo_disciplia": "Graduação",
+            "idx_professor": 2563,
+            "idx_documento": [ 45663, 45226 ]
+        }
+"""
+
+"""
+@apiDefine ObjetoDisciplina
+
+@apiParam {String="GRAD","POS"} tipo_disciplia Tipo da disciplia
+@apiParam {Number} idx_professor <code>idx</code> do professor
+@apiParam {Number[]} [idx_documento] Lista de <code>idx</code> dos documentos da disciplia
+"""
+
+"""
+@apiDefine ObjetoDisciplinaMod
+
+@apiParam {String="GRAD","POS"} [tipo_disciplia] Tipo da disciplia
+@apiParam {Number} [idx_professor] <code>idx</code> do professor
+@apiParam {Number[]} [idx_documento] Lista de <code>idx</code> dos documentos da disciplia
+"""
+
+"""
+@apiDefine DisciplinaNotFoundError
+
+@apiError {DisciplinaNotFound} message  <code>Disciplina</code> com <code>id</code>
+fornecido não foi encontrado
+
+@apiErrorExample Error-Response:
+    HTTP/1.1 200 Ok
+    {
+        "code": 404,
+        "message": "DisciplinaNotFound"
+    }
+"""

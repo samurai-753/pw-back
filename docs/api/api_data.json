@@ -285,6 +285,264 @@
   },
   {
     "type": "delete",
+    "url": "/api/disciplina/:id",
+    "title": "Deleta disciplina",
+    "version": "1.0.0-a",
+    "name": "DeleteDisciplina",
+    "group": "Disciplina",
+    "description": "<p>Deleta um <code>Disciplina</code> existente</p>",
+    "filename": "./routes/routes_disciplina.py",
+    "groupTitle": "Disciplina",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "DisciplinaNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>Disciplina</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"DisciplinaNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/disciplina/:id",
+    "title": "Recupera disciplina",
+    "version": "1.0.0-a",
+    "name": "GetDisciplinaId",
+    "group": "Disciplina",
+    "description": "<p>Recupera o aluni com o <code>id</code> fornecido</p>",
+    "filename": "./routes/routes_disciplina.py",
+    "groupTitle": "Disciplina",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p><code>Disciplina</code> com <code>id</code> fornecido</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 485,\n    \"tipo_disciplia\": \"Graduação\",\n    \"idx_professor\": 2563,\n    \"idx_documento\": [ 45663, 45226 ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "DisciplinaNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>Disciplina</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"DisciplinaNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/disciplina",
+    "title": "Recupera disciplinas",
+    "version": "1.0.0-a",
+    "name": "GetDisciplinas",
+    "group": "Disciplina",
+    "description": "<p>Recupera a lista de todos os disciplinas castrados no sistema</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Lista de <code>Disciplina</code></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"idx\": 485,\n            \"tipo_disciplia\": \"Graduação\",\n            \"idx_professor\": 2563,\n            \"idx_documento\": [ 45663, 45226 ]\n        }, {\n            ...\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./routes/routes_disciplina.py",
+    "groupTitle": "Disciplina"
+  },
+  {
+    "type": "post",
+    "url": "/api/disciplina/",
+    "title": "Adiciona disciplina",
+    "version": "1.0.0-a",
+    "name": "PostDisciplina",
+    "group": "Disciplina",
+    "description": "<p>Adiciona um novo <code>Disciplina</code></p>",
+    "filename": "./routes/routes_disciplina.py",
+    "groupTitle": "Disciplina",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"GRAD\"",
+              "\"POS\""
+            ],
+            "optional": false,
+            "field": "tipo_disciplia",
+            "description": "<p>Tipo da disciplia</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "idx_professor",
+            "description": "<p><code>idx</code> do professor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number[]",
+            "optional": true,
+            "field": "idx_documento",
+            "description": "<p>Lista de <code>idx</code> dos documentos da disciplia</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p><code>Disciplina</code> com <code>id</code> fornecido</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 485,\n    \"tipo_disciplia\": \"Graduação\",\n    \"idx_professor\": 2563,\n    \"idx_documento\": [ 45663, 45226 ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "patch",
+    "url": "/api/disciplina/:id",
+    "title": "Atualiza disciplina",
+    "version": "1.0.0-a",
+    "name": "PutDisciplina",
+    "group": "Disciplina",
+    "description": "<p>Atualiza um <code>Disciplina</code> existente</p>",
+    "filename": "./routes/routes_disciplina.py",
+    "groupTitle": "Disciplina",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"GRAD\"",
+              "\"POS\""
+            ],
+            "optional": true,
+            "field": "tipo_disciplia",
+            "description": "<p>Tipo da disciplia</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "idx_professor",
+            "description": "<p><code>idx</code> do professor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number[]",
+            "optional": true,
+            "field": "idx_documento",
+            "description": "<p>Lista de <code>idx</code> dos documentos da disciplia</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "DisciplinaNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>Disciplina</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"DisciplinaNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
     "url": "/api/professor/:id",
     "title": "Deleta professor",
     "version": "1.0.0-a",
