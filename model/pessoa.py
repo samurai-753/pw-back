@@ -1,14 +1,17 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+from app import db
 
 
-class Pessoa(object):
-    
-    def __init__(self, idx, nome, email, telefone):
+class Pessoa(db.Model):
+    idx = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    telefone = db.Column(db.String(12))
+
+    def __init__(self, nome, email, telefone, idx=0):
         self.idx = idx
         self.nome = nome
         self.email = email
         self.telefone = telefone
 
     def __repr__(self):
-        return '<Pessoa nome={} />'.format(self.nome)
+        return '<Pessoa idx={} nome={} />'.format(self.idx, self.nome)
