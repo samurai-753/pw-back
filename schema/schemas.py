@@ -8,10 +8,14 @@ class SchemaPessoa(ma.ModelSchema):
 
 
 class SchemaProfessor(ma.ModelSchema):
+    detalhes = ma.Nested(SchemaPessoa)
+
     class Meta:
         model = Professor
 
 
 class SchemaAluno(ma.ModelSchema):
+    detalhes = ma.Nested(SchemaPessoa)
+
     class Meta:
         model = Aluno

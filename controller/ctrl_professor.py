@@ -1,36 +1,35 @@
+import random
+from app import db
 from model import Professor
-from dao import ProfessorDAO
-from pprint import pprint
+from schema import SchemaProfessor
+from sqlalchemy.exc import IntegrityError
+
 
 class CtrlProfessor:
-    instancia = None
     
-    class __CtrlProfessor:
-
-        def get_professores(self):
-            return ProfessorDAO().get_professores()
-
-        def get_professor(self, idx):
-            return ProfessorDAO().get_professor(idx)
-
-        def add_professor_instanciado(self, p):
-            return ProfessorDAO().add_professor(p)
-
-        def add_professor(self, data):
-            p = Professor.from_dict(data)
-            return ProfessorDAO().add_professor(p)
-        
-        def update_professor(self, idx, data):
-            p = Professor.from_dict(data)
-            p.idx = idx
-            return ProfessorDAO().update_professor(p)
-        
-        def delete_professor(self, idx):
-            return ProfessorDAO().delete_professor(idx)
-
     def __init__(self):
-        if(self.instancia == None):
-            self.instancia = self.__CtrlProfessor()
+        self.schema_professor = SchemaProfessor(strict=True)
+        self.schema_professores = SchemaProfessor(strict=True, many=True)
 
-    def __getattr__(self, name):
-        return getattr(self.instancia, name)
+    def add_professor(self, professor):
+        try:
+            professor.idx = random.randint(0x0000, 0xffff)
+            db.session.add(professor)
+            db.session.commit()
+
+            return self.dump_professor(professor)
+
+        except IntegrityError as e:
+            db.session.rollback()
+            
+            return dict(
+                error='IntegrityError',
+                message=str(e)
+            )
+
+
+    def dump_professor(self, professor):
+        return self.schema_professor.dump(professor).data
+    
+    def dump_professores(self, professores):
+        return self.schema_professores.dump(professores).data

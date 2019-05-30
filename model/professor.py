@@ -6,6 +6,7 @@ class Professor(db.Model):
     detalhes_idx = db.Column(
         db.Integer, db.ForeignKey('pessoa.idx'), nullable=False
     )
+    detalhes = db.relationship('Pessoa', uselist=False)
     sala = db.Column(db.String(5), nullable=False)
 
     def __init__(self, detalhes_idx, sala, idx=0):
@@ -14,4 +15,4 @@ class Professor(db.Model):
         self.sala = sala
 
     def __repr__(self):
-        return '<Professor idx={} nome={} />'.format(self.idx, self.nome)
+        return '<Professor idx={} />'.format(self.idx)

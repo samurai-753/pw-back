@@ -7,7 +7,7 @@ class Pessoa(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     telefone = db.Column(db.String(12))
 
-    def __init__(self, nome, email, idx=0, telefone=''):
+    def __init__(self, nome, email, telefone, idx=0):
         self.idx = idx
         self.nome = nome
         self.email = email

@@ -1,9 +1,12 @@
 from flask import Blueprint, jsonify, request
-from controller import CtrlProfessor
+from controller import CtrlProfessor, CtrlPessoa
+from model import Professor, Pessoa
+from pprint import pprint
 
 
 app_professor = Blueprint('professor', __name__)
 ctrl_professor = CtrlProfessor()
+ctrl_pessoa = CtrlPessoa()
 
 
 @app_professor.route('/api/professor/', methods=['GET'])
@@ -41,12 +44,10 @@ def get_professores():
         }
     """
 
-    professores = ctrl_professor.get_professores()
-    if professores == None:
-        return jsonify(success=False)
-
-    l = [ x.__dict__ for x in professores ]
-    return jsonify(professores=l)
+    return jsonify(
+        status=200,
+        data={}
+    )
 
 
 @app_professor.route('/api/professor/<idx>', methods=['GET'])
@@ -64,12 +65,10 @@ def get_professor(idx):
     @apiUse ProfessorNotFoundError
     """
 
-    idx = int(idx)
-    p = ctrl_professor.get_professor(idx)
-    if p == None:
-        return jsonify(success=False)
-
-    return jsonify(p.__dict__)
+    return jsonify(
+        status=200,
+        data={}
+    )
 
 
 @app_professor.route('/api/professor', methods=['POST'])
@@ -89,12 +88,25 @@ def post_professor():
     """
 
     data = request.get_json()
-    try:
-        r = ctrl_professor.add_professor(data)
-    except KeyError as e:
-        return jsonify(success=False, mensagem='Está faltando o dado {}'.format(e), code=400)
     
-    return jsonify(idx=r)
+    nome = data['nome']
+    email = data['email']
+    telefone = data.get('telefone')
+
+    pessoa = Pessoa(nome, email, telefone)
+    pessoa_dict = ctrl_pessoa.add_pessoa(pessoa)
+
+    sala = data['sala']
+
+    professor = Professor(pessoa_dict['idx'], sala)
+    professor_dict = ctrl_professor.add_professor(professor)
+
+    professor.detalhes = pessoa
+
+    return jsonify(
+        status=200,
+        data=professor_dict
+    )
 
 
 @app_professor.route('/api/professor/<idx>', methods=['PUT'])
@@ -113,11 +125,10 @@ def update_professor(idx):
     @apiUse ProfessorNotFoundError
     """
 
-    idx = int(idx)
-    data = request.get_json()
-    r = ctrl_professor.update_professor(idx, data)
-    
-    return jsonify(success=r)
+    return jsonify(
+        status=200,
+        data={}
+    )
 
 
 @app_professor.route('/api/professor/<idx>', methods=['DELETE'])
@@ -136,6 +147,7 @@ def delete_professor(idx):
     @apiUse ProfessorNotFoundError
     """
 
-    idx = int(idx)
-    r = ctrl_professor.delete_professor(idx)
-    return jsonify(success=r)
+    return jsonify(
+        status=200,
+        data={}
+    )
