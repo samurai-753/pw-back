@@ -6,7 +6,8 @@ from .tipo_extensao import TipoExtensao
 
 class Extensao(object):
 
-    def __init__(self, inicio, fim, documento, tipo_extensao=TipoExtensao.UNDEFINED):
+    def __init__(self, idx, inicio, fim, documento, tipo_extensao=TipoExtensao.UNDEFINED):
+        self.idx = idx
         self.inicio = inicio
         self.fim = fim
         self.tipo_extensao = tipo_extensao

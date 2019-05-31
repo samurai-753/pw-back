@@ -38,8 +38,8 @@
                 "telefone": "35912345678",
                 "sala": "DCC26",
                 "extensões": [
-                    "Bacharel e ciência da computção, UFLA 2007"
-                ]
+                    123, 5436,
+                ],
             }
         }
 """
@@ -166,5 +166,208 @@ fornecido não foi encontrado
     {
         "code": 404,
         "message": "DisciplinaNotFound"
+    }
+"""
+
+
+# ============================================================================
+# ProjetoPesquisa
+# ============================================================================
+
+"""
+@apiDefine ProjetoPesquisaExemplo
+
+@apiSuccess {Number} code 200
+@apiSuccess {Object} data <code>ProjetoPesquisa</code> com <code>id</code> fornecido
+
+@apiSuccessExample Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "idx": 485,
+            "nome" = "Aplicando o TSP para problema de roteamento de veículos",
+            "orientador" = 2134,
+            "coorientador" = 134,
+            "alunos" = [22, 545],
+        }
+"""
+
+"""
+@apiDefine ObjetoProjetoPesquisa
+
+@apiParam {Number} idx_projeto_pesquisa Nome do projeto de pesquisa
+@apiParam {Number} idx_orientador <code>idx</code> do orientador do projeto de pesquisa
+@apiParam {Number} idx_coorientador <code>idx</code> do coorientador do projeto de pesquisa
+@apiParam {Number[]} idx_alunos <code>idx</code> dos alunos do projeto de pesquisa
+"""
+
+"""
+@apiDefine ObjetoProjetoPesquisaMod
+
+@apiParam {Number} [idx_projeto_pesquisa] Nome do projeto de pesquisa
+@apiParam {Number} [idx_orientador] Nome do orientador do projeto de pesquisa
+@apiParam {Number} [idx_coorientador] Nome do coorientador do projeto de pesquisa
+@apiParam {Number[]} [idx_alunos] Nome dos alunos do projeto de pesquisa
+"""
+
+"""
+@apiDefine ProjetoPesquisaNotFoundError
+
+@apiError {ProjetoPesquisaNotFound} message  <code>ProjetoPesquisa</code> com <code>id</code>
+fornecido não foi encontrado
+
+@apiErrorExample Error-Response:
+    HTTP/1.1 200 Ok
+    {
+        "code": 404,
+        "message": "ProjetoPesquisaNotFound"
+    }
+"""
+
+
+# ============================================================================
+# Documento
+# ============================================================================
+
+"""
+@apiDefine DocumentoExemplo
+
+@apiSuccess {Number} code 200
+@apiSuccess {Object} data <code>Documento</code> com <code>id</code> fornecido
+
+@apiSuccessExample Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "idx": 327,
+            "nome" = "TCC_Lucas.pdf",
+        }
+"""
+
+"""
+@apiDefine ObjetoDocumento
+
+@apiParam {String} nome_documento Nome do documento
+"""
+
+"""
+@apiDefine ObjetoDocumentoMod
+
+@apiParam {String} [nome_documento] Nome do documento
+"""
+
+"""
+@apiDefine DocumentoNotFoundError
+
+@apiError {DocumentoNotFound} message  <code>Documento</code> com <code>id</code>
+fornecido não foi encontrado
+
+@apiErrorExample Error-Response:
+    HTTP/1.1 200 Ok
+    {
+        "code": 404,
+        "message": "DocumentoNotFound"
+    }
+"""
+
+# ============================================================================
+# Publicacao
+# ============================================================================
+
+"""
+@apiDefine PublicacaoExemplo
+
+@apiSuccess {Number} code 200
+@apiSuccess {Object} data <code>Publicacao</code> com <code>id</code> fornecido
+
+@apiSuccessExample Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "idx": 327,
+            "info" = ""
+            "documentos" = []
+            "tipo_publicacao" = "CON"
+        }
+"""
+
+"""
+@apiDefine ObjetoPublicacao
+
+@apiParam {String} info Informações sobre a publicação
+@apiParam {Number[]} documentos <code>idx</code> dos documentos
+@apiParam {String="CON, RES, PER"} tipo_publicacao Tipo da publicação
+"""
+
+"""
+@apiDefine ObjetoPublicacaoMod
+
+@apiParam {String} [info] Informações sobre a publicação
+@apiParam {Number[]} [documentos] <code>idx</code> dos documentos
+@apiParam {String="CON, RES, PER"} [tipo_publicacao] Tipo da publicação
+"""
+
+"""
+@apiDefine PublicacaoNotFoundError
+
+@apiError {PublicacaoNotFound} message  <code>Publicacao</code> com <code>id</code>
+fornecido não foi encontrado
+
+@apiErrorExample Error-Response:
+    HTTP/1.1 200 Ok
+    {
+        "code": 404,
+        "message": "PublicacaoNotFound"
+    }
+"""
+
+
+# ============================================================================
+# Extensao
+# ============================================================================
+
+"""
+@apiDefine ExtensaoExemplo
+
+@apiSuccess {Number} code 200
+@apiSuccess {Object} data <code>Extensao</code> com <code>id</code> fornecido
+
+@apiSuccessExample Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "idx" = 520,
+            "inicio" = "2018-07-01",
+            "fim" = "2019-06-30",
+            "tipo_extensao" = "IC",
+            "documento" = "3",
+        }
+"""
+
+"""
+@apiDefine ObjetoExtensao
+
+@apiParam {Date} inicio data de início da extensão
+@apiParam {Date} fim data de término da extensão
+@apiParam {String="IC, MEST, DOC, PDOC"} tipo_extensao Tipo da extensão
+@apiParam {Number} documento <code>idx</code> do documento referente a extensão
+"""
+
+"""
+@apiDefine ObjetoExtensaoMod
+
+@apiParam {String} [tipo_extensao] Tipo da extensão
+@apiParam {Date} [inicio] data de início da extensão
+@apiParam {Date} [fim] data de término da extensão
+@apiParam {Number} [documento] <code>idx</code> do documento referente a extensão
+"""
+
+"""
+@apiDefine ExtensaoNotFoundError
+
+@apiError {ExtensaoNotFound} message  <code>Extensao</code> com <code>id</code>
+fornecido não foi encontrado
+
+@apiErrorExample Error-Response:
+    HTTP/1.1 200 Ok
+    {
+        "code": 404,
+        "message": "ExtensaoNotFound"
     }
 """

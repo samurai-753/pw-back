@@ -4,7 +4,8 @@
 
 class ProjetoPesquisa(object):
 
-    def __init__(self, nome, orientador, alunos=[],  coorientador=None):
+    def __init__(self, idx, nome, orientador, alunos=[],  coorientador=None):
+        self.idx = idx
         self.nome = nome
         self.orientador = orientador
         self.coorientador = coorientador

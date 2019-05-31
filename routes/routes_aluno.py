@@ -50,7 +50,7 @@ def get_aluno_idx(idx):
     @apiName GetAlunoId
     @apiGroup Aluno
 
-    @apiDescription Recupera o aluni com o <code>id</code> fornecido
+    @apiDescription Recupera o aluno com o <code>id</code> fornecido
 
     @apiUse AlunoExemplo
 
