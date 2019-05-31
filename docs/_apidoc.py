@@ -168,3 +168,58 @@ fornecido não foi encontrado
         "message": "DisciplinaNotFound"
     }
 """
+
+
+# ============================================================================
+# ProjetoPesquisa
+# ============================================================================
+
+"""
+@apiDefine ProjetoPesquisaExemplo
+
+@apiSuccess {Number} code 200
+@apiSuccess {Object} data <code>ProjetoPesquisa</code> com <code>id</code> fornecido
+
+@apiSuccessExample Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "idx": 485,
+            "nome" = "Aplicando o TSP para problema de roteamento de veículos",
+            "orientador" = "Luis Carlos",
+            "coorientador" = "Paulo Vitor",
+            "alunos" = [Lucas Alves, Guilherme Oliveira],
+        }
+"""
+
+"""
+@apiDefine ObjetoProjetoPesquisa
+
+@apiParam {Number} idx_projeto_pesquisa <code>idx</code> do professor
+@apiParam {String} nome_projeto_pesquisa Nome do projeto de pesquisa
+@apiParam {String} nome_orientador Nome do orientador do projeto de pesquisa
+@apiParam {String} nome_coorientador Nome do coorientador do projeto de pesquisa
+@apiParam {String[]} nome_alunos Nome dos alunos do projeto de pesquisa
+"""
+
+"""
+@apiDefine ObjetoProjetoPesquisaMod
+
+@apiParam {String} nome_projeto_pesquisa Nome do projeto de pesquisa
+@apiParam {String} nome_orientador Nome do orientador do projeto de pesquisa
+@apiParam {String} nome_coorientador Nome do coorientador do projeto de pesquisa
+@apiParam {String[]} nome_alunos Nome dos alunos do projeto de pesquisa
+"""
+
+"""
+@apiDefine ProjetoPesquisaNotFoundError
+
+@apiError {ProjetoPesquisaNotFound} message  <code>ProjetoPesquisa</code> com <code>id</code>
+fornecido não foi encontrado
+
+@apiErrorExample Error-Response:
+    HTTP/1.1 200 Ok
+    {
+        "code": 404,
+        "message": "ProjetoPesquisaNotFound"
+    }
+"""

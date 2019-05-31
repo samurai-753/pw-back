@@ -847,6 +847,277 @@ define({ "api": [
     }
   },
   {
+    "type": "delete",
+    "url": "/api/projeto_pesquisa/:id",
+    "title": "Deleta Projeto de Pesquisa",
+    "version": "1.0.0-a",
+    "name": "DeleteProjetoPesquisa",
+    "group": "ProjetoPesquisa",
+    "description": "<p>Deleta um <code>ProjetoPesquisa</code> existente</p>",
+    "filename": "./routes/routes_projeto_pesquisa.py",
+    "groupTitle": "ProjetoPesquisa",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "ProjetoPesquisaNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>ProjetoPesquisa</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"ProjetoPesquisaNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/projeto_pesquisa/:id",
+    "title": "Recupera Projeto de pesquisa",
+    "version": "1.0.0-a",
+    "name": "GetProjetoPesquisaId",
+    "group": "ProjetoPesquisa",
+    "description": "<p>Recupera o aluni com o <code>id</code> fornecido</p>",
+    "filename": "./routes/routes_projeto_pesquisa.py",
+    "groupTitle": "ProjetoPesquisa",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p><code>ProjetoPesquisa</code> com <code>id</code> fornecido</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 485,\n    \"nome\" = \"Aplicando o TSP para problema de roteamento de veículos\",\n    \"orientador\" = \"Luis Carlos\",\n    \"coorientador\" = \"Paulo Vitor\",\n    \"alunos\" = [Lucas Alves, Guilherme Oliveira],\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "ProjetoPesquisaNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>ProjetoPesquisa</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"ProjetoPesquisaNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/projeto_pesquisa",
+    "title": "Recupera Projeto de pesquisas",
+    "version": "1.0.0-a",
+    "name": "GetProjetoPesquisas",
+    "group": "ProjetoPesquisa",
+    "description": "<p>Recupera a lista de todos os Projetos de pesquisas castrados no sistema</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Lista de <code>ProjetoPesquisa</code></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"idx\": 485,\n            \"nome\" = \"Aplicando o TSP para problema de roteamento de veículos\",\n            \"orientador\" = \"Luis Carlos\",\n            \"coorientador\" = \"Paulo Vitor\",\n            \"alunos\" = [Lucas Alves, Guilherme Oliveira],\n        }, {\n            ...\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./routes/routes_projeto_pesquisa.py",
+    "groupTitle": "ProjetoPesquisa"
+  },
+  {
+    "type": "post",
+    "url": "/api/projeto_pesquisa/",
+    "title": "Adiciona Projeto de pesquisa",
+    "version": "1.0.0-a",
+    "name": "PostProjetoPesquisa",
+    "group": "ProjetoPesquisa",
+    "description": "<p>Adiciona um novo <code>ProjetoPesquisa</code></p>",
+    "filename": "./routes/routes_projeto_pesquisa.py",
+    "groupTitle": "ProjetoPesquisa",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "idx_projeto_pesquisa",
+            "description": "<p><code>idx</code> do professor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nome_projeto_pesquisa",
+            "description": "<p>Nome do projeto de pesquisa</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nome_orientador",
+            "description": "<p>Nome do orientador do projeto de pesquisa</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nome_coorientador",
+            "description": "<p>Nome do coorientador do projeto de pesquisa</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "optional": false,
+            "field": "nome_alunos",
+            "description": "<p>Nome dos alunos do projeto de pesquisa</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p><code>ProjetoPesquisa</code> com <code>id</code> fornecido</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 485,\n    \"nome\" = \"Aplicando o TSP para problema de roteamento de veículos\",\n    \"orientador\" = \"Luis Carlos\",\n    \"coorientador\" = \"Paulo Vitor\",\n    \"alunos\" = [Lucas Alves, Guilherme Oliveira],\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "patch",
+    "url": "/api/projeto_pesquisa/:id",
+    "title": "Atualiza Projeto de pesquisa",
+    "version": "1.0.0-a",
+    "name": "PutProjetoPesquisa",
+    "group": "ProjetoPesquisa",
+    "description": "<p>Atualiza um <code>ProjetoPesquisa</code> existente</p>",
+    "filename": "./routes/routes_projeto_pesquisa.py",
+    "groupTitle": "ProjetoPesquisa",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nome_projeto_pesquisa",
+            "description": "<p>Nome do projeto de pesquisa</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nome_orientador",
+            "description": "<p>Nome do orientador do projeto de pesquisa</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nome_coorientador",
+            "description": "<p>Nome do coorientador do projeto de pesquisa</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "optional": false,
+            "field": "nome_alunos",
+            "description": "<p>Nome dos alunos do projeto de pesquisa</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "ProjetoPesquisaNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>ProjetoPesquisa</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"ProjetoPesquisaNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
     "success": {
       "fields": {
         "Success 200": [
@@ -870,8 +1141,8 @@ define({ "api": [
     "url": "",
     "version": "0.0.0",
     "filename": "./docs/api/main.js",
-    "group": "_home_k4t0mono_projs_pw_back_docs_api_main_js",
-    "groupTitle": "_home_k4t0mono_projs_pw_back_docs_api_main_js",
+    "group": "_home_thuza_Documents_Periodo_7_PROG_WEB_pw_back_docs_api_main_js",
+    "groupTitle": "_home_thuza_Documents_Periodo_7_PROG_WEB_pw_back_docs_api_main_js",
     "name": ""
   }
 ] });
