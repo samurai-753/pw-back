@@ -683,13 +683,6 @@
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "idx_documento",
-            "description": "<p><code>idx</code> do documento</p>"
-          },
-          {
-            "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "nome_documento",
@@ -742,7 +735,7 @@
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
+            "optional": true,
             "field": "nome_documento",
             "description": "<p>Nome do documento</p>"
           }
@@ -833,7 +826,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"idx\" = 520,\n    \"inicio\" = \"2018-07-01\",\n    \"fim\" = \"2019-06-30\",\n    \"tipo_extensao\" = \"\",\n    \"documento\" = \"3\",\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\" = 520,\n    \"inicio\" = \"2018-07-01\",\n    \"fim\" = \"2019-06-30\",\n    \"tipo_extensao\" = \"IC\",\n    \"documento\" = \"3\",\n}",
           "type": "json"
         }
       ]
@@ -912,13 +905,6 @@
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "idx_extensao",
-            "description": "<p><code>idx</code> da extensão</p>"
-          },
-          {
-            "group": "Parameter",
             "type": "Date",
             "optional": false,
             "field": "inicio",
@@ -934,6 +920,9 @@
           {
             "group": "Parameter",
             "type": "String",
+            "allowedValues": [
+              "\"IC, MEST, DOC, PDOC\""
+            ],
             "optional": false,
             "field": "tipo_extensao",
             "description": "<p>Tipo da extensão</p>"
@@ -970,7 +959,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"idx\" = 520,\n    \"inicio\" = \"2018-07-01\",\n    \"fim\" = \"2019-06-30\",\n    \"tipo_extensao\" = \"\",\n    \"documento\" = \"3\",\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\" = 520,\n    \"inicio\" = \"2018-07-01\",\n    \"fim\" = \"2019-06-30\",\n    \"tipo_extensao\" = \"IC\",\n    \"documento\" = \"3\",\n}",
           "type": "json"
         }
       ]
@@ -992,28 +981,28 @@
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
+            "optional": true,
             "field": "tipo_extensao",
             "description": "<p>Tipo da extensão</p>"
           },
           {
             "group": "Parameter",
             "type": "Date",
-            "optional": false,
+            "optional": true,
             "field": "inicio",
             "description": "<p>data de início da extensão</p>"
           },
           {
             "group": "Parameter",
             "type": "Date",
-            "optional": false,
+            "optional": true,
             "field": "fim",
             "description": "<p>data de término da extensão</p>"
           },
           {
             "group": "Parameter",
             "type": "Number",
-            "optional": false,
+            "optional": true,
             "field": "documento",
             "description": "<p><code>idx</code> do documento referente a extensão</p>"
           }
@@ -1176,7 +1165,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            \"Bacharel e ciência da computção, UFLA 2007\"\n        ],\n    }\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            123, 5436,\n        ],\n    }\n}",
           "type": "json"
         }
       ]
@@ -1340,7 +1329,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            \"Bacharel e ciência da computção, UFLA 2007\"\n        ],\n    }\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            123, 5436,\n        ],\n    }\n}",
           "type": "json"
         }
       ]
@@ -1409,7 +1398,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 485,\n    \"nome\" = \"Aplicando o TSP para problema de roteamento de veículos\",\n    \"orientador\" = \"Luis Carlos\",\n    \"coorientador\" = \"Paulo Vitor\",\n    \"alunos\" = [Lucas Alves, Guilherme Oliveira],\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 485,\n    \"nome\" = \"Aplicando o TSP para problema de roteamento de veículos\",\n    \"orientador\" = 2134,\n    \"coorientador\" = 134,\n    \"alunos\" = [22, 545],\n}",
           "type": "json"
         }
       ]
@@ -1465,7 +1454,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"idx\": 485,\n            \"nome\" = \"Aplicando o TSP para problema de roteamento de veículos\",\n            \"orientador\" = \"Luis Carlos\",\n            \"coorientador\" = \"Paulo Vitor\",\n            \"alunos\" = [Lucas Alves, Guilherme Oliveira],\n        }, {\n            ...\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"idx\": 485,\n            \"nome\" = \"Aplicando o TSP para problema de roteamento de veículos\",\n            \"orientador\" = 2134,\n            \"coorientador\" = 134,\n            \"alunos\" = [22, 545],\n        }, {\n            ...\n        }\n    ]\n}",
           "type": "json"
         }
       ]
@@ -1491,35 +1480,28 @@
             "type": "Number",
             "optional": false,
             "field": "idx_projeto_pesquisa",
-            "description": "<p><code>idx</code> do projeto de pesquisa</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "nome_projeto_pesquisa",
             "description": "<p>Nome do projeto de pesquisa</p>"
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "Number",
             "optional": false,
-            "field": "nome_orientador",
-            "description": "<p>Nome do orientador do projeto de pesquisa</p>"
+            "field": "idx_orientador",
+            "description": "<p><code>idx</code> do orientador do projeto de pesquisa</p>"
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "Number",
             "optional": false,
-            "field": "nome_coorientador",
-            "description": "<p>Nome do coorientador do projeto de pesquisa</p>"
+            "field": "idx_coorientador",
+            "description": "<p><code>idx</code> do coorientador do projeto de pesquisa</p>"
           },
           {
             "group": "Parameter",
-            "type": "String[]",
+            "type": "Number[]",
             "optional": false,
-            "field": "nome_alunos",
-            "description": "<p>Nome dos alunos do projeto de pesquisa</p>"
+            "field": "idx_alunos",
+            "description": "<p><code>idx</code> dos alunos do projeto de pesquisa</p>"
           }
         ]
       }
@@ -1546,7 +1528,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 485,\n    \"nome\" = \"Aplicando o TSP para problema de roteamento de veículos\",\n    \"orientador\" = \"Luis Carlos\",\n    \"coorientador\" = \"Paulo Vitor\",\n    \"alunos\" = [Lucas Alves, Guilherme Oliveira],\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 485,\n    \"nome\" = \"Aplicando o TSP para problema de roteamento de veículos\",\n    \"orientador\" = 2134,\n    \"coorientador\" = 134,\n    \"alunos\" = [22, 545],\n}",
           "type": "json"
         }
       ]
@@ -1567,30 +1549,30 @@
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "nome_projeto_pesquisa",
+            "type": "Number",
+            "optional": true,
+            "field": "idx_projeto_pesquisa",
             "description": "<p>Nome do projeto de pesquisa</p>"
           },
           {
             "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "nome_orientador",
+            "type": "Number",
+            "optional": true,
+            "field": "idx_orientador",
             "description": "<p>Nome do orientador do projeto de pesquisa</p>"
           },
           {
             "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "nome_coorientador",
+            "type": "Number",
+            "optional": true,
+            "field": "idx_coorientador",
             "description": "<p>Nome do coorientador do projeto de pesquisa</p>"
           },
           {
             "group": "Parameter",
-            "type": "String[]",
-            "optional": false,
-            "field": "nome_alunos",
+            "type": "Number[]",
+            "optional": true,
+            "field": "idx_alunos",
             "description": "<p>Nome dos alunos do projeto de pesquisa</p>"
           }
         ]
@@ -1680,7 +1662,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 327,\n    \"info\" = \"\"\n    \"documento\" = \"\"\n    \"tipo_publicacao\" = \"CON\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 327,\n    \"info\" = \"\"\n    \"documentos\" = []\n    \"tipo_publicacao\" = \"CON\"\n}",
           "type": "json"
         }
       ]
@@ -1759,10 +1741,17 @@
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "String",
             "optional": false,
-            "field": "idx_publicacao",
-            "description": "<p><code>idx</code> da publicação</p>"
+            "field": "info",
+            "description": "<p>Informações sobre a publicação</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number[]",
+            "optional": false,
+            "field": "documentos",
+            "description": "<p><code>idx</code> dos documentos</p>"
           },
           {
             "group": "Parameter",
@@ -1799,7 +1788,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 327,\n    \"info\" = \"\"\n    \"documento\" = \"\"\n    \"tipo_publicacao\" = \"CON\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 327,\n    \"info\" = \"\"\n    \"documentos\" = []\n    \"tipo_publicacao\" = \"CON\"\n}",
           "type": "json"
         }
       ]
@@ -1821,10 +1810,24 @@
           {
             "group": "Parameter",
             "type": "String",
+            "optional": true,
+            "field": "info",
+            "description": "<p>Informações sobre a publicação</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number[]",
+            "optional": true,
+            "field": "documentos",
+            "description": "<p><code>idx</code> dos documentos</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
             "allowedValues": [
               "\"CON, RES, PER\""
             ],
-            "optional": false,
+            "optional": true,
             "field": "tipo_publicacao",
             "description": "<p>Tipo da publicação</p>"
           }
@@ -1876,8 +1879,8 @@
     "url": "",
     "version": "0.0.0",
     "filename": "./docs/api/main.js",
-    "group": "_home_thuza_Documents_Periodo_7_PROG_WEB_pw_back_docs_api_main_js",
-    "groupTitle": "_home_thuza_Documents_Periodo_7_PROG_WEB_pw_back_docs_api_main_js",
+    "group": "_home_k4t0mono_projs_pw_back_docs_api_main_js",
+    "groupTitle": "_home_k4t0mono_projs_pw_back_docs_api_main_js",
     "name": ""
   }
 ]

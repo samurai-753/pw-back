@@ -38,7 +38,7 @@
                 "telefone": "35912345678",
                 "sala": "DCC26",
                 "extensões": [
-                    "Bacharel e ciência da computção, UFLA 2007"
+                    123, 5436,
                 ],
             }
         }
@@ -185,29 +185,28 @@ fornecido não foi encontrado
         {
             "idx": 485,
             "nome" = "Aplicando o TSP para problema de roteamento de veículos",
-            "orientador" = "Luis Carlos",
-            "coorientador" = "Paulo Vitor",
-            "alunos" = [Lucas Alves, Guilherme Oliveira],
+            "orientador" = 2134,
+            "coorientador" = 134,
+            "alunos" = [22, 545],
         }
 """
 
 """
 @apiDefine ObjetoProjetoPesquisa
 
-@apiParam {Number} idx_projeto_pesquisa <code>idx</code> do projeto de pesquisa
-@apiParam {String} nome_projeto_pesquisa Nome do projeto de pesquisa
-@apiParam {String} nome_orientador Nome do orientador do projeto de pesquisa
-@apiParam {String} nome_coorientador Nome do coorientador do projeto de pesquisa
-@apiParam {String[]} nome_alunos Nome dos alunos do projeto de pesquisa
+@apiParam {Number} idx_projeto_pesquisa Nome do projeto de pesquisa
+@apiParam {Number} idx_orientador <code>idx</code> do orientador do projeto de pesquisa
+@apiParam {Number} idx_coorientador <code>idx</code> do coorientador do projeto de pesquisa
+@apiParam {Number[]} idx_alunos <code>idx</code> dos alunos do projeto de pesquisa
 """
 
 """
 @apiDefine ObjetoProjetoPesquisaMod
 
-@apiParam {String} nome_projeto_pesquisa Nome do projeto de pesquisa
-@apiParam {String} nome_orientador Nome do orientador do projeto de pesquisa
-@apiParam {String} nome_coorientador Nome do coorientador do projeto de pesquisa
-@apiParam {String[]} nome_alunos Nome dos alunos do projeto de pesquisa
+@apiParam {Number} [idx_projeto_pesquisa] Nome do projeto de pesquisa
+@apiParam {Number} [idx_orientador] Nome do orientador do projeto de pesquisa
+@apiParam {Number} [idx_coorientador] Nome do coorientador do projeto de pesquisa
+@apiParam {Number[]} [idx_alunos] Nome dos alunos do projeto de pesquisa
 """
 
 """
@@ -246,14 +245,13 @@ fornecido não foi encontrado
 """
 @apiDefine ObjetoDocumento
 
-@apiParam {Number} idx_documento <code>idx</code> do documento
 @apiParam {String} nome_documento Nome do documento
 """
 
 """
 @apiDefine ObjetoDocumentoMod
 
-@apiParam {String} nome_documento Nome do documento
+@apiParam {String} [nome_documento] Nome do documento
 """
 
 """
@@ -285,7 +283,7 @@ fornecido não foi encontrado
         {
             "idx": 327,
             "info" = ""
-            "documento" = ""
+            "documentos" = []
             "tipo_publicacao" = "CON"
         }
 """
@@ -293,14 +291,17 @@ fornecido não foi encontrado
 """
 @apiDefine ObjetoPublicacao
 
-@apiParam {Number} idx_publicacao <code>idx</code> da publicação
+@apiParam {String} info Informações sobre a publicação
+@apiParam {Number[]} documentos <code>idx</code> dos documentos
 @apiParam {String="CON, RES, PER"} tipo_publicacao Tipo da publicação
 """
 
 """
 @apiDefine ObjetoPublicacaoMod
 
-@apiParam {String="CON, RES, PER"} tipo_publicacao Tipo da publicação
+@apiParam {String} [info] Informações sobre a publicação
+@apiParam {Number[]} [documentos] <code>idx</code> dos documentos
+@apiParam {String="CON, RES, PER"} [tipo_publicacao] Tipo da publicação
 """
 
 """
@@ -334,7 +335,7 @@ fornecido não foi encontrado
             "idx" = 520,
             "inicio" = "2018-07-01",
             "fim" = "2019-06-30",
-            "tipo_extensao" = "",
+            "tipo_extensao" = "IC",
             "documento" = "3",
         }
 """
@@ -342,21 +343,19 @@ fornecido não foi encontrado
 """
 @apiDefine ObjetoExtensao
 
-@apiParam {Number} idx_extensao <code>idx</code> da extensão
 @apiParam {Date} inicio data de início da extensão
 @apiParam {Date} fim data de término da extensão
-@apiParam {String} tipo_extensao Tipo da extensão
+@apiParam {String="IC, MEST, DOC, PDOC"} tipo_extensao Tipo da extensão
 @apiParam {Number} documento <code>idx</code> do documento referente a extensão
 """
 
 """
 @apiDefine ObjetoExtensaoMod
 
-@apiParam {String} tipo_extensao Tipo da extensão
-@apiParam {Date} inicio data de início da extensão
-@apiParam {Date} fim data de término da extensão
-@apiParam {String} tipo_extensao Tipo da extensão
-@apiParam {Number} documento <code>idx</code> do documento referente a extensão
+@apiParam {String} [tipo_extensao] Tipo da extensão
+@apiParam {Date} [inicio] data de início da extensão
+@apiParam {Date} [fim] data de término da extensão
+@apiParam {Number} [documento] <code>idx</code> do documento referente a extensão
 """
 
 """

@@ -26,9 +26,9 @@ def get_projeto_pesquisa():
                 {
                     "idx": 485,
                     "nome" = "Aplicando o TSP para problema de roteamento de veículos",
-                    "orientador" = "Luis Carlos",
-                    "coorientador" = "Paulo Vitor",
-                    "alunos" = [Lucas Alves, Guilherme Oliveira],
+                    "orientador" = 2134,
+                    "coorientador" = 134,
+                    "alunos" = [22, 545],
                 }, {
                     ...
                 }
