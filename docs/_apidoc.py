@@ -39,7 +39,8 @@
                 "sala": "DCC26",
                 "extensões": [
                     "Bacharel e ciência da computção, UFLA 2007"
-                ]
+                ],
+                "grupos_pespquisa": ["SmellinGroup", "DefaultGroup"],
             }
         }
 """
@@ -194,7 +195,7 @@ fornecido não foi encontrado
 """
 @apiDefine ObjetoProjetoPesquisa
 
-@apiParam {Number} idx_projeto_pesquisa <code>idx</code> do professor
+@apiParam {Number} idx_projeto_pesquisa <code>idx</code> do projeto de pesquisa
 @apiParam {String} nome_projeto_pesquisa Nome do projeto de pesquisa
 @apiParam {String} nome_orientador Nome do orientador do projeto de pesquisa
 @apiParam {String} nome_coorientador Nome do coorientador do projeto de pesquisa
@@ -221,5 +222,155 @@ fornecido não foi encontrado
     {
         "code": 404,
         "message": "ProjetoPesquisaNotFound"
+    }
+"""
+
+
+# ============================================================================
+# Documento
+# ============================================================================
+
+"""
+@apiDefine DocumentoExemplo
+
+@apiSuccess {Number} code 200
+@apiSuccess {Object} data <code>Documento</code> com <code>id</code> fornecido
+
+@apiSuccessExample Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "idx": 327,
+            "nome" = "TCC_Lucas.pdf",
+            "path" = "/home/my_project/data_base/pdf_documents/TCC_Lucas.pdf",
+        }
+"""
+
+"""
+@apiDefine ObjetoDocumento
+
+@apiParam {Number} idx_documento <code>idx</code> do documento
+@apiParam {String} nome_documento Nome do documento
+"""
+
+"""
+@apiDefine ObjetoDocumentoMod
+
+@apiParam {String} nome_documento Nome do documento
+"""
+
+"""
+@apiDefine DocumentoNotFoundError
+
+@apiError {DocumentoNotFound} message  <code>Documento</code> com <code>id</code>
+fornecido não foi encontrado
+
+@apiErrorExample Error-Response:
+    HTTP/1.1 200 Ok
+    {
+        "code": 404,
+        "message": "DocumentoNotFound"
+    }
+"""
+
+# ============================================================================
+# Publicacao
+# ============================================================================
+
+"""
+@apiDefine PublicacaoExemplo
+
+@apiSuccess {Number} code 200
+@apiSuccess {Object} data <code>Publicacao</code> com <code>id</code> fornecido
+
+@apiSuccessExample Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "idx": 327,
+            "info" = ""
+            "documento" = ""
+            "tipo_publicacao" = "CON"
+        }
+"""
+
+"""
+@apiDefine ObjetoPublicacao
+
+@apiParam {Number} idx_publicacao <code>idx</code> da publicação
+@apiParam {String="CON, RES, PER"} tipo_publicacao Tipo da publicação
+"""
+
+"""
+@apiDefine ObjetoPublicacaoMod
+
+@apiParam {String="CON, RES, PER"} tipo_publicacao Tipo da publicação
+"""
+
+"""
+@apiDefine PublicacaoNotFoundError
+
+@apiError {PublicacaoNotFound} message  <code>Publicacao</code> com <code>id</code>
+fornecido não foi encontrado
+
+@apiErrorExample Error-Response:
+    HTTP/1.1 200 Ok
+    {
+        "code": 404,
+        "message": "PublicacaoNotFound"
+    }
+"""
+
+
+# ============================================================================
+# Extensao
+# ============================================================================
+
+"""
+@apiDefine ExtensaoExemplo
+
+@apiSuccess {Number} code 200
+@apiSuccess {Object} data <code>Extensao</code> com <code>id</code> fornecido
+
+@apiSuccessExample Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "idx" = 520,
+            "inicio" = "2018-07-01",
+            "fim" = "2019-06-30",
+            "tipo_extensao" = "",
+            "documento" = "3",
+        }
+"""
+
+"""
+@apiDefine ObjetoExtensao
+
+@apiParam {Number} idx_extensao <code>idx</code> da extensão
+@apiParam {Date} inicio data de início da extensão
+@apiParam {Date} fim data de término da extensão
+@apiParam {String} tipo_extensao Tipo da extensão
+@apiParam {Number} documento <code>idx</code> do documento referente a extensão
+"""
+
+"""
+@apiDefine ObjetoExtensaoMod
+
+@apiParam {String} tipo_extensao Tipo da extensão
+@apiParam {Date} inicio data de início da extensão
+@apiParam {Date} fim data de término da extensão
+@apiParam {String} tipo_extensao Tipo da extensão
+@apiParam {Number} documento <code>idx</code> do documento referente a extensão
+"""
+
+"""
+@apiDefine ExtensaoNotFoundError
+
+@apiError {ExtensaoNotFound} message  <code>Extensao</code> com <code>id</code>
+fornecido não foi encontrado
+
+@apiErrorExample Error-Response:
+    HTTP/1.1 200 Ok
+    {
+        "code": 404,
+        "message": "ExtensaoNotFound"
     }
 """

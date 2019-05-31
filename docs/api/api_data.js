@@ -64,7 +64,7 @@ define({ "api": [
     "version": "1.0.0-a",
     "name": "GetAlunoId",
     "group": "Aluno",
-    "description": "<p>Recupera o aluni com o <code>id</code> fornecido</p>",
+    "description": "<p>Recupera o aluno com o <code>id</code> fornecido</p>",
     "filename": "./routes/routes_aluno.py",
     "groupTitle": "Aluno",
     "success": {
@@ -321,7 +321,7 @@ define({ "api": [
     "version": "1.0.0-a",
     "name": "GetDisciplinaId",
     "group": "Disciplina",
-    "description": "<p>Recupera o aluni com o <code>id</code> fornecido</p>",
+    "description": "<p>Recupera o aluno com o <code>id</code> fornecido</p>",
     "filename": "./routes/routes_disciplina.py",
     "groupTitle": "Disciplina",
     "success": {
@@ -543,6 +543,506 @@ define({ "api": [
   },
   {
     "type": "delete",
+    "url": "/api/documento/:id",
+    "title": "Deleta Projeto de Pesquisa",
+    "version": "1.0.0-a",
+    "name": "DeleteDocumento",
+    "group": "Documento",
+    "description": "<p>Deleta um <code>Documento</code> existente</p>",
+    "filename": "./routes/routes_documento.py",
+    "groupTitle": "Documento",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "DocumentoNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>Documento</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"DocumentoNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/documento/:id",
+    "title": "Recupera Documento",
+    "version": "1.0.0-a",
+    "name": "GetDocumentoId",
+    "group": "Documento",
+    "description": "<p>Recupera o documento com o <code>id</code> fornecido</p>",
+    "filename": "./routes/routes_documento.py",
+    "groupTitle": "Documento",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p><code>Documento</code> com <code>id</code> fornecido</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 327,\n    \"nome\" = \"TCC_Lucas.pdf\",\n    \"path\" = \"/home/my_project/data_base/pdf_documents/TCC_Lucas.pdf\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "DocumentoNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>Documento</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"DocumentoNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/documento",
+    "title": "Recupera Documentos",
+    "version": "1.0.0-a",
+    "name": "GetDocumentos",
+    "group": "Documento",
+    "description": "<p>Recupera a lista de todos os Documentos castrados no sistema</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Lista de <code>Documento</code></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"idx\": 107,\n            \"nome\" = \"TCC_Lucas.pdf\",\n        }, {\n            ...\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./routes/routes_documento.py",
+    "groupTitle": "Documento"
+  },
+  {
+    "type": "post",
+    "url": "/api/documento/",
+    "title": "Adiciona Documento",
+    "version": "1.0.0-a",
+    "name": "PostDocumento",
+    "group": "Documento",
+    "description": "<p>Adiciona um novo <code>Documento</code></p>",
+    "filename": "./routes/routes_documento.py",
+    "groupTitle": "Documento",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "idx_documento",
+            "description": "<p><code>idx</code> do documento</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nome_documento",
+            "description": "<p>Nome do documento</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p><code>Documento</code> com <code>id</code> fornecido</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 327,\n    \"nome\" = \"TCC_Lucas.pdf\",\n    \"path\" = \"/home/my_project/data_base/pdf_documents/TCC_Lucas.pdf\",\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "patch",
+    "url": "/api/documento/:id",
+    "title": "Atualiza Documento",
+    "version": "1.0.0-a",
+    "name": "PutDocumento",
+    "group": "Documento",
+    "description": "<p>Atualiza um <code>Documento</code> existente</p>",
+    "filename": "./routes/routes_documento.py",
+    "groupTitle": "Documento",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nome_documento",
+            "description": "<p>Nome do documento</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "DocumentoNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>Documento</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"DocumentoNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/api/extensao/:id",
+    "title": "Deleta Extensao",
+    "version": "1.0.0-a",
+    "name": "DeleteExtensao",
+    "group": "Extensao",
+    "description": "<p>Deleta uma <code>Extensao</code> existente</p>",
+    "filename": "./routes/routes_extensao.py",
+    "groupTitle": "Extensao",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "ExtensaoNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>Extensao</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"ExtensaoNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/extensao/:id",
+    "title": "Recupera Extensao",
+    "version": "1.0.0-a",
+    "name": "GetExtensaoId",
+    "group": "Extensao",
+    "description": "<p>Recupera a extensao com o <code>id</code> fornecido</p>",
+    "filename": "./routes/routes_extensao.py",
+    "groupTitle": "Extensao",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p><code>Extensao</code> com <code>id</code> fornecido</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\" = 520,\n    \"inicio\" = \"2018-07-01\",\n    \"fim\" = \"2019-06-30\",\n    \"tipo_extensao\" = \"\",\n    \"documento\" = \"3\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "ExtensaoNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>Extensao</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"ExtensaoNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/extensao",
+    "title": "Recupera Extensões",
+    "version": "1.0.0-a",
+    "name": "GetExtensoes",
+    "group": "Extensao",
+    "description": "<p>Recupera a lista de todos os Extensões castrados no sistema</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Lista de <code>Extensao</code></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"idx\" = 520,\n            \"inicio\" = \"2018-07-01\",\n            \"fim\" = \"2019-06-30\",\n            \"tipo_extensao\" = \"\",\n            \"documento\" = \"3\",\n        }, {\n            ...\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./routes/routes_extensao.py",
+    "groupTitle": "Extensao"
+  },
+  {
+    "type": "post",
+    "url": "/api/extensao/",
+    "title": "Adiciona Extensao",
+    "version": "1.0.0-a",
+    "name": "PostExtensao",
+    "group": "Extensao",
+    "description": "<p>Adiciona uma nova <code>Extensao</code></p>",
+    "filename": "./routes/routes_extensao.py",
+    "groupTitle": "Extensao",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "idx_extensao",
+            "description": "<p><code>idx</code> da extensão</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "inicio",
+            "description": "<p>data de início da extensão</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "fim",
+            "description": "<p>data de término da extensão</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "tipo_extensao",
+            "description": "<p>Tipo da extensão</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "documento",
+            "description": "<p><code>idx</code> do documento referente a extensão</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p><code>Extensao</code> com <code>id</code> fornecido</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\" = 520,\n    \"inicio\" = \"2018-07-01\",\n    \"fim\" = \"2019-06-30\",\n    \"tipo_extensao\" = \"\",\n    \"documento\" = \"3\",\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "patch",
+    "url": "/api/extensao/:id",
+    "title": "Atualiza Extensao",
+    "version": "1.0.0-a",
+    "name": "PutExtensao",
+    "group": "Extensao",
+    "description": "<p>Atualiza uma <code>Extensao</code> existente</p>",
+    "filename": "./routes/routes_extensao.py",
+    "groupTitle": "Extensao",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "tipo_extensao",
+            "description": "<p>Tipo da extensão</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "inicio",
+            "description": "<p>data de início da extensão</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "fim",
+            "description": "<p>data de término da extensão</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "documento",
+            "description": "<p><code>idx</code> do documento referente a extensão</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "ExtensaoNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>Extensao</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"ExtensaoNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
     "url": "/api/professor/:id",
     "title": "Deleta professor",
     "version": "1.0.0-a",
@@ -636,7 +1136,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"idx\": 1,\n            \"nome\": \"Durelli\",\n            \"email\": \"durelli@dcc.ufla.br\",\n            \"telefone\": \"35912345678\",\n            \"sala\": \"DCC26\",\n            \"extensões\": [\n                \"Bacharel e ciência da computção, UFLA 2007\"\n            ]\n        }, {\n            ...\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"idx\": 1,\n            \"nome\": \"Durelli\",\n            \"email\": \"durelli@dcc.ufla.br\",\n            \"telefone\": \"35912345678\",\n            \"sala\": \"DCC26\",\n            \"extensões\": [\n                \"Bacharel e ciência da computção, UFLA 2007\"\n            ],\n            \"grupos_pespquisa\": [\"SmellinGroup\", \"DefaultGroup\"],\n        }, {\n            ...\n        }\n    ]\n}",
           "type": "json"
         }
       ]
@@ -676,7 +1176,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            \"Bacharel e ciência da computção, UFLA 2007\"\n        ]\n    }\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            \"Bacharel e ciência da computção, UFLA 2007\"\n        ],\n        \"grupos_pespquisa\": [\"SmellinGroup\", \"DefaultGroup\"],\n    }\n}",
           "type": "json"
         }
       ]
@@ -840,7 +1340,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            \"Bacharel e ciência da computção, UFLA 2007\"\n        ]\n    }\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            \"Bacharel e ciência da computção, UFLA 2007\"\n        ],\n        \"grupos_pespquisa\": [\"SmellinGroup\", \"DefaultGroup\"],\n    }\n}",
           "type": "json"
         }
       ]
@@ -849,7 +1349,7 @@ define({ "api": [
   {
     "type": "delete",
     "url": "/api/projeto_pesquisa/:id",
-    "title": "Deleta Projeto de Pesquisa",
+    "title": "Deleta Projeto de pesquisa",
     "version": "1.0.0-a",
     "name": "DeleteProjetoPesquisa",
     "group": "ProjetoPesquisa",
@@ -884,7 +1384,7 @@ define({ "api": [
     "version": "1.0.0-a",
     "name": "GetProjetoPesquisaId",
     "group": "ProjetoPesquisa",
-    "description": "<p>Recupera o aluni com o <code>id</code> fornecido</p>",
+    "description": "<p>Recupera o documento com o <code>id</code> fornecido</p>",
     "filename": "./routes/routes_projeto_pesquisa.py",
     "groupTitle": "ProjetoPesquisa",
     "success": {
@@ -938,7 +1438,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "/api/projeto_pesquisa",
-    "title": "Recupera Projeto de pesquisas",
+    "title": "Recupera Projetos de pesquisas",
     "version": "1.0.0-a",
     "name": "GetProjetoPesquisas",
     "group": "ProjetoPesquisa",
@@ -991,7 +1491,7 @@ define({ "api": [
             "type": "Number",
             "optional": false,
             "field": "idx_projeto_pesquisa",
-            "description": "<p><code>idx</code> do professor</p>"
+            "description": "<p><code>idx</code> do projeto de pesquisa</p>"
           },
           {
             "group": "Parameter",
@@ -1112,6 +1612,241 @@ define({ "api": [
         {
           "title": "Error-Response:",
           "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"ProjetoPesquisaNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/api/publicacao/:id",
+    "title": "Deleta Publicação",
+    "version": "1.0.0-a",
+    "name": "DeletePublicacao",
+    "group": "Publicacao",
+    "description": "<p>Deleta uma <code>Publicacao</code> existente</p>",
+    "filename": "./routes/routes_publicacao.py",
+    "groupTitle": "Publicacao",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "PublicacaoNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>Publicacao</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"PublicacaoNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/publicacao/:id",
+    "title": "Recupera Publicação",
+    "version": "1.0.0-a",
+    "name": "GetPublicacaoId",
+    "group": "Publicacao",
+    "description": "<p>Recupera a publicacao com o <code>id</code> fornecido</p>",
+    "filename": "./routes/routes_publicacao.py",
+    "groupTitle": "Publicacao",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p><code>Publicacao</code> com <code>id</code> fornecido</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 327,\n    \"info\" = \"\"\n    \"documento\" = \"\"\n    \"tipo_publicacao\" = \"CON\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "PublicacaoNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>Publicacao</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"PublicacaoNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/publicacao",
+    "title": "Recupera Publicações",
+    "version": "1.0.0-a",
+    "name": "GetPublicacoes",
+    "group": "Publicacao",
+    "description": "<p>Recupera a lista de todas as Publicações castradas no sistema</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Lista de <code>Publicacao</code></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"idx\" = 206\n            \"info\" = \"\"\n            \"publicacao\" = \"\"\n            \"tipo_publicacao\" = \"RES\"\n        }, {\n            ...\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./routes/routes_publicacao.py",
+    "groupTitle": "Publicacao"
+  },
+  {
+    "type": "post",
+    "url": "/api/publicacao/",
+    "title": "Adiciona Publicação",
+    "version": "1.0.0-a",
+    "name": "PostPublicacao",
+    "group": "Publicacao",
+    "description": "<p>Adiciona uma nova <code>Publicacao</code></p>",
+    "filename": "./routes/routes_publicacao.py",
+    "groupTitle": "Publicacao",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "idx_publicacao",
+            "description": "<p><code>idx</code> da publicação</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"CON, RES, PER\""
+            ],
+            "optional": false,
+            "field": "tipo_publicacao",
+            "description": "<p>Tipo da publicação</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>200</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p><code>Publicacao</code> com <code>id</code> fornecido</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 327,\n    \"info\" = \"\"\n    \"documento\" = \"\"\n    \"tipo_publicacao\" = \"CON\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "patch",
+    "url": "/api/publicacao/:id",
+    "title": "Atualiza Publicação",
+    "version": "1.0.0-a",
+    "name": "PutPublicacao",
+    "group": "Publicacao",
+    "description": "<p>Atualiza uma <code>Publicacao</code> existente</p>",
+    "filename": "./routes/routes_publicacao.py",
+    "groupTitle": "Publicacao",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"CON, RES, PER\""
+            ],
+            "optional": false,
+            "field": "tipo_publicacao",
+            "description": "<p>Tipo da publicação</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "PublicacaoNotFound",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>Publicacao</code> com <code>id</code> fornecido não foi encontrado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 200 Ok\n{\n    \"code\": 404,\n    \"message\": \"PublicacaoNotFound\"\n}",
           "type": "json"
         }
       ]

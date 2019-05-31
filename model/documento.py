@@ -6,7 +6,8 @@ from .publicacao import Publicacao
 
 class Documento(Publicacao):
     
-    def __init__(self, nome, path):
+    def __init__(self, idx, nome, path):
+        self.idx = idx
         self.nome = nome
         self.path = path
 

@@ -49,7 +49,7 @@ def get_disciplina_idx(idx):
     @apiName GetDisciplinaId
     @apiGroup Disciplina
 
-    @apiDescription Recupera o aluni com o <code>id</code> fornecido
+    @apiDescription Recupera o aluno com o <code>id</code> fornecido
 
     @apiUse DisciplinaExemplo
 

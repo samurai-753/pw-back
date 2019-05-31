@@ -7,7 +7,7 @@ app_projeto_pesquisa = Blueprint('projeto_pesquisa', __name__)
 @app_projeto_pesquisa.route('/api/projeto_pesquisa', methods=['GET'])
 def get_projeto_pesquisa():
     """
-    @api {get} /api/projeto_pesquisa Recupera Projeto de pesquisas
+    @api {get} /api/projeto_pesquisa Recupera Projetos de pesquisas
     @apiVersion 1.0.0-a
     @apiName GetProjetoPesquisas
     @apiGroup ProjetoPesquisa
@@ -50,7 +50,7 @@ def get_projeto_pesquisa_idx(idx):
     @apiName GetProjetoPesquisaId
     @apiGroup ProjetoPesquisa
 
-    @apiDescription Recupera o aluni com o <code>id</code> fornecido
+    @apiDescription Recupera o documento com o <code>id</code> fornecido
 
     @apiUse ProjetoPesquisaExemplo
 
@@ -108,7 +108,7 @@ def update_projeto_pesquisa(idx):
 @app_projeto_pesquisa.route('/api/projeto_pesquisa/<idx>', methods=['DELETE'])
 def delete_projeto_pesquisa(idx):
     """
-    @api {delete} /api/projeto_pesquisa/:id Deleta Projeto de Pesquisa
+    @api {delete} /api/projeto_pesquisa/:id Deleta Projeto de pesquisa
     @apiVersion 1.0.0-a
     @apiName DeleteProjetoPesquisa
     @apiGroup ProjetoPesquisa
