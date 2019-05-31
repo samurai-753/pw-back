@@ -37,7 +37,6 @@ def get_professores():
                     "extensões": [
                         "Bacharel e ciência da computção, UFLA 2007"
                     ],
-                    "grupos_pespquisa": ["SmellinGroup", "DefaultGroup"],
                 }, {
                     ...
                 }

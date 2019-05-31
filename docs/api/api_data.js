@@ -604,7 +604,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 327,\n    \"nome\" = \"TCC_Lucas.pdf\",\n    \"path\" = \"/home/my_project/data_base/pdf_documents/TCC_Lucas.pdf\",\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 327,\n    \"nome\" = \"TCC_Lucas.pdf\",\n}",
           "type": "json"
         }
       ]
@@ -720,7 +720,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 327,\n    \"nome\" = \"TCC_Lucas.pdf\",\n    \"path\" = \"/home/my_project/data_base/pdf_documents/TCC_Lucas.pdf\",\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"idx\": 327,\n    \"nome\" = \"TCC_Lucas.pdf\",\n}",
           "type": "json"
         }
       ]
@@ -1136,7 +1136,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"idx\": 1,\n            \"nome\": \"Durelli\",\n            \"email\": \"durelli@dcc.ufla.br\",\n            \"telefone\": \"35912345678\",\n            \"sala\": \"DCC26\",\n            \"extensões\": [\n                \"Bacharel e ciência da computção, UFLA 2007\"\n            ],\n            \"grupos_pespquisa\": [\"SmellinGroup\", \"DefaultGroup\"],\n        }, {\n            ...\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"idx\": 1,\n            \"nome\": \"Durelli\",\n            \"email\": \"durelli@dcc.ufla.br\",\n            \"telefone\": \"35912345678\",\n            \"sala\": \"DCC26\",\n            \"extensões\": [\n                \"Bacharel e ciência da computção, UFLA 2007\"\n            ],\n        }, {\n            ...\n        }\n    ]\n}",
           "type": "json"
         }
       ]
@@ -1176,7 +1176,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            \"Bacharel e ciência da computção, UFLA 2007\"\n        ],\n        \"grupos_pespquisa\": [\"SmellinGroup\", \"DefaultGroup\"],\n    }\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            \"Bacharel e ciência da computção, UFLA 2007\"\n        ],\n    }\n}",
           "type": "json"
         }
       ]
@@ -1340,7 +1340,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            \"Bacharel e ciência da computção, UFLA 2007\"\n        ],\n        \"grupos_pespquisa\": [\"SmellinGroup\", \"DefaultGroup\"],\n    }\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n        \"idx\": 1,\n        \"nome\": \"Durelli\",\n        \"email\": \"durelli@dcc.ufla.br\",\n        \"telefone\": \"35912345678\",\n        \"sala\": \"DCC26\",\n        \"extensões\": [\n            \"Bacharel e ciência da computção, UFLA 2007\"\n        ],\n    }\n}",
           "type": "json"
         }
       ]

@@ -40,7 +40,6 @@
                 "extensões": [
                     "Bacharel e ciência da computção, UFLA 2007"
                 ],
-                "grupos_pespquisa": ["SmellinGroup", "DefaultGroup"],
             }
         }
 """
@@ -241,7 +240,6 @@ fornecido não foi encontrado
         {
             "idx": 327,
             "nome" = "TCC_Lucas.pdf",
-            "path" = "/home/my_project/data_base/pdf_documents/TCC_Lucas.pdf",
         }
 """
 
