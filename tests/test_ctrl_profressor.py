@@ -1,63 +1,56 @@
 import unittest
-from controller import CtrlProfessor
-from dao import ProfessorDAO
-from model import Professor
+import json
+from pprint import pprint
+from app import app, db
+from routes import app_professor
+from model import Professor, Pessoa
+from schema import SchemaPessoa, SchemaProfessor
+
 
 class TestCtrlProfessor(unittest.TestCase):
 
     def setUp(self):
-        ProfessorDAO().db_fake = []
+        app.register_blueprint(app_professor)
+        self.app = app.test_client()
+        db.create_all()
 
-        self.ctrl = CtrlProfessor()
-
+        self.schema_professor = SchemaProfessor(strict=True)
+        self.schema_professores = SchemaProfessor(strict=True, many=True)
+        
         self.professores = [
-            Professor(1, 'Dudei', 'dudu@samurai.io', '(99) 123-123', 'dcc-01', ['bacharel','phd'])
+            dict(nome='Gabriel Ribolive', email='ribolive@samurai.io', telefone='123', sala='dcc08'),
+            dict(nome='Arthur Cruz', email='thuzax@samurai.io', telefone='123', sala='dcc47'),
+            dict(nome='Breno Gomes', email='brenex@samurai.io', telefone='123', sala='dcc33'),
         ]
-        for p in self.professores:
-            self.ctrl.add_professor_instanciado(p)
-        
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+
+    def dump_professor(self, person):
+        return self.schema_professor.dump(person).data
     
-    def test__get_professores__professores(self):
-        professores = self.ctrl.get_professores()
-        self.assertEqual(len(professores), len(ProfessorDAO().db_fake), 'Deve ter apenas um professor')
-        self.assertIsInstance(professores[0], Professor, 'Deve conter um objeto da classe Professor')
-
-    def test__get_professor__professor(self):
-        professor = self.ctrl.get_professor(1)
-        self.assertAlmostEqual(professor, self.professores[0], 'Deveria retornar {}'.format(self.professores[0]))
-
-    def test__get_professor__none(self):
-        professor = self.ctrl.get_professor(66)
-        self.assertAlmostEqual(professor, None, 'Não deveria retornar um professor')
+    def dump_professores(self, people):
+        return self.schema_professores.dump(people).data
     
-    def test__add_professor_instanciado__professor(self):
-        p = Professor(43, 'Thuzax', 'Thuzax@samurai.io', '(99) 433-334', 'dcc-43', ['bacharel','phd'])
-        self.ctrl.add_professor_instanciado(p)
+    def post_professor(self, professor):
+        res = self.app.post(
+            '/api/professor',
+            data=json.dumps(professor),
+            content_type='application/json'
+        )
 
-        p_ = self.ctrl.get_professor(43)
-        self.assertEqual(p, p_, 'Deveria ser o mesmo objeto')
+        return json.loads(res.data.decode('utf-8'))
 
-    def test__update_professor__true(self):
+    def assert_professor_equal(self, recived_prof, sent_prof):
+        self.assertEqual(recived_prof['detalhes']['nome'], sent_prof['nome'])
+        self.assertEqual(recived_prof['detalhes']['telefone'], sent_prof['telefone'])
+        self.assertEqual(recived_prof['detalhes']['email'], sent_prof['email'])
+        self.assertEqual(recived_prof['sala'], sent_prof['sala'])
+    
+    def test__post_professor__200(self):
         p = self.professores[0]
-        p.nome = 'Ribolive'
+        data = self.post_professor(p)
 
-        status = self.ctrl.update_professor(1, p.__dict__)
-        self.assertTrue(status, 'Erro ao atualizar dado')
-        
-        p_ = self.ctrl.get_professor(1)
-        self.assertEqual(p, p_, 'Deveria ser o mesmo objeto')
-
-    def test__update_professor__false(self):
-        p = self.professores[0]
-        p.nome = 'Ribolive'
-
-        status = self.ctrl.update_professor(999, p.__dict__)
-        self.assertFalse(status, 'Dado nao deveria existir')
-
-    def test__delete_professor__true(self):
-        status = self.ctrl.delete_professor(1)
-        self.assertTrue(status, 'Dado deveria existir')
-
-    def test__delete_professor__false(self):
-        status = self.ctrl.delete_professor(5)
-        self.assertFalse(status, 'Dado nao deveria existir')
+        self.assertEqual(200, data['status'])
+        self.assert_professor_equal(data['data'], p)
