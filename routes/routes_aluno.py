@@ -1,7 +1,12 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
+from controller import CtrlAluno, CtrlPessoa
+from model import Aluno, Pessoa
+from pprint import pprint
 
 
 app_aluno = Blueprint('aluno', __name__)
+ctrl_aluno = CtrlAluno()
+ctrl_pessoa = CtrlPessoa()
 
 
 @app_aluno.route('/api/aluno', methods=['GET'])
@@ -38,14 +43,14 @@ def get_aluno():
 
     return jsonify(
         status=200,
-        data={}
+        data=ctrl_aluno.get_alunos()
     )
 
 
 @app_aluno.route('/api/aluno/<idx>', methods=['GET'])
 def get_aluno_idx(idx):
     """
-    @api {get} /api/aluno/:id Recupera aluno
+    @api {get} /api/aluno/:idx Recupera aluno
     @apiVersion 1.0.0-a
     @apiName GetAlunoId
     @apiGroup Aluno
@@ -59,7 +64,7 @@ def get_aluno_idx(idx):
 
     return jsonify(
         status=200,
-        data={}
+        data=ctrl_aluno.get_aluno(idx)
     )
 
 
@@ -79,13 +84,22 @@ def post_aluno():
     @apiUse AlunoExemplo
     """
 
+    data = request.get_json()
+    
+    nome = data['nome']
+    email = data['email']
+    telefone = data.get('telefone')
+    resumo = data['resumo']
+
+    aluno_dict = ctrl_aluno.add_aluno(nome, email, telefone, resumo)
+
     return jsonify(
         status=200,
-        data={}
+        data=aluno_dict
     )
 
 
-@app_aluno.route('/api/aluno/<idx>', methods=['PUT'])
+@app_aluno.route('/api/aluno/<idx>', methods=['PATCH'])
 def update_aluno(idx):
     """
     @api {put} /api/aluno/:id Atualiza aluno
@@ -101,9 +115,18 @@ def update_aluno(idx):
     @apiUse AlunoNotFoundError
     """
 
+    data = request.get_json()
+    
+    nome = data.get('nome')
+    email = data.get('email')
+    telefone = data.get('telefone')
+    resumo = data.get('resumo')
+
+    aluno_dict = ctrl_aluno.update_aluno(idx, nome, email, telefone, resumo)
+
     return jsonify(
         status=200,
-        data={}
+        data=aluno_dict
     )
 
 
@@ -123,6 +146,7 @@ def delete_aluno(idx):
     @apiUse AlunoNotFoundError
     """
 
+    ctrl_aluno.delete_aluno(idx)
     return jsonify(
         status=200,
         data={}
