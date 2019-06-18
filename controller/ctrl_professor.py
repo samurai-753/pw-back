@@ -46,6 +46,9 @@ class CtrlProfessor:
     
     def delete_professor(self, idx):
         professor = Professor.query.get(idx)
+        if not professor:
+            raise Exception('idx')
+            
         self.ctrl_pessoa.delete_pessoa(professor.detalhes_idx)
 
         db.session.delete(professor)
@@ -53,6 +56,8 @@ class CtrlProfessor:
     
     def update_professor(self, idx, nome, email, telefone, sala):
         professor = Professor.query.get(idx)
+        if not professor:
+            raise Exception('idx')
 
         if nome:
             professor.detalhes.nome = nome

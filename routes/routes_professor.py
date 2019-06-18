@@ -9,7 +9,7 @@ ctrl_professor = CtrlProfessor()
 ctrl_pessoa = CtrlPessoa()
 
 
-@app_professor.route('/api/professor/', methods=['GET'])
+@app_professor.route('/api/professor', methods=['GET'])
 def get_professores():
     """
     @api {get} /api/professor Recupera professores
@@ -65,10 +65,17 @@ def get_professor(idx):
     @apiUse ProfessorNotFoundError
     """
 
-    return jsonify(
-        status=200,
-        data=ctrl_professor.get_professor(idx)
-    )
+    p = ctrl_professor.get_professor(idx)
+    if p:
+        return jsonify(
+            status=200,
+            data=p
+        )
+    else:
+        return jsonify(
+            status=404,
+            message='IdNotFound {}'.format(idx)
+        )
 
 
 @app_professor.route('/api/professor', methods=['POST'])
@@ -89,17 +96,24 @@ def post_professor():
 
     data = request.get_json()
     
-    nome = data['nome']
-    email = data['email']
-    telefone = data.get('telefone')
-    sala = data['sala']
+    try:
+        nome = data['nome']
+        email = data['email']
+        telefone = data.get('telefone')
+        sala = data['sala']
 
-    professor_dict = ctrl_professor.add_professor(nome, email, telefone, sala)
+        professor_dict = ctrl_professor.add_professor(nome, email, telefone, sala)
 
-    return jsonify(
-        status=200,
-        data=professor_dict
-    )
+        return jsonify(
+            status=200,
+            data=professor_dict
+        )
+
+    except KeyError as e:
+        return jsonify(
+            status=400,
+            message='KeyNotFound {}'.format(e)
+        )
 
 
 @app_professor.route('/api/professor/<idx>', methods=['PATCH'])
@@ -125,12 +139,19 @@ def update_professor(idx):
     telefone = data.get('telefone')
     sala = data.get('sala')
 
-    professor_dict = ctrl_professor.update_professor(idx, nome, email, telefone, sala)
+    try:
+        professor_dict = ctrl_professor.update_professor(idx, nome, email, telefone, sala)
 
-    return jsonify(
-        status=200,
-        data=professor_dict
-    )
+        return jsonify(
+            status=200,
+            data=professor_dict
+        )
+        
+    except Exception as e:
+        return jsonify(
+            status=404,
+            message='IdNotFound {}'.format(idx)
+        )
 
 
 @app_professor.route('/api/professor/<idx>', methods=['DELETE'])
@@ -149,8 +170,13 @@ def delete_professor(idx):
     @apiUse ProfessorNotFoundError
     """
 
-    ctrl_professor.delete_professor(idx)
-    return jsonify(
-        status=200,
-        data={}
-    )
+    try:
+        ctrl_professor.delete_professor(idx)
+        return jsonify(
+            status=200,
+        )
+    except:
+        return jsonify(
+            status=404,
+            message='IdNotFound {}'.format(idx)
+        )

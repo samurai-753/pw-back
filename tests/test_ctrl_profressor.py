@@ -1,63 +1,159 @@
 import unittest
-from controller import CtrlProfessor
-from dao import ProfessorDAO
-from model import Professor
+import json
+from pprint import pprint
+from app import app, db
+from routes import app_professor
+from model import Professor, Pessoa
+from schema import SchemaPessoa, SchemaProfessor
+
 
 class TestCtrlProfessor(unittest.TestCase):
 
     def setUp(self):
-        ProfessorDAO().db_fake = []
+        app.register_blueprint(app_professor)
+        self.app = app.test_client()
+        db.create_all()
 
-        self.ctrl = CtrlProfessor()
-
+        self.schema_professor = SchemaProfessor(strict=True)
+        self.schema_professores = SchemaProfessor(strict=True, many=True)
+        
         self.professores = [
-            Professor(1, 'Dudei', 'dudu@samurai.io', '(99) 123-123', 'dcc-01', ['bacharel','phd'])
+            dict(nome='Gabriel Ribolive', email='ribolive@samurai.io', telefone='123', sala='dcc08'),
+            dict(nome='Arthur Cruz', email='thuzax@samurai.io', telefone='123', sala='dcc47'),
+            dict(nome='Breno Gomes', email='brenex@samurai.io', telefone='123', sala='dcc33'),
         ]
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+
+    def dump_professor(self, person):
+        return self.schema_professor.dump(person).data
+    
+    def dump_professores(self, people):
+        return self.schema_professores.dump(people).data
+    
+    def get_professor(self, idx):
+        res = self.app.get(
+            '/api/professor/{}'.format(idx)
+        )
+
+        return json.loads(res.data.decode('utf-8'))
+
+    def post_professor(self, professor):
+        res = self.app.post(
+            '/api/professor',
+            data=json.dumps(professor),
+            content_type='application/json'
+        )
+
+        return json.loads(res.data.decode('utf-8'))
+    
+    def patch_professor(self, idx, dados):
+        res = self.app.patch(
+            '/api/professor/{}'.format(idx),
+            data=json.dumps(dados),
+            content_type='application/json'
+        )
+
+        return json.loads(res.data.decode('utf-8'))
+
+    def delete_professor(self, idx):
+        res = self.app.delete(
+            '/api/professor/{}'.format(idx)
+        )
+
+        return json.loads(res.data.decode('utf-8'))
+
+    def assert_professor_equal(self, recived_prof, sent_prof):
+        self.assertEqual(recived_prof['detalhes']['nome'], sent_prof['nome'])
+        self.assertEqual(recived_prof['detalhes']['telefone'], sent_prof['telefone'])
+        self.assertEqual(recived_prof['detalhes']['email'], sent_prof['email'])
+        self.assertEqual(recived_prof['sala'], sent_prof['sala'])
+    
+    def test__post_professor__200(self):
+        p = self.professores[0]
+        data = self.post_professor(p)
+
+        self.assertEqual(200, data['status'])
+        self.assert_professor_equal(data['data'], p)
+    
+    def test__post_professor__400(self):
+        p = self.professores[1]
+        p.pop('sala', None)
+        data = self.post_professor(p)
+
+        self.assertEqual(400, data['status'])
+        self.assertEqual("KeyNotFound 'sala'", data['message'])
+    
+    def test__get_professores__vazio(self):
+        res = self.app.get('/api/professor')
+        data = json.loads(res.data.decode('utf-8'))
+        
+        self.assertEqual(200, data['status'])
+        self.assertFalse(data['data'])
+
+    def test__get_professores__lista(self):
         for p in self.professores:
-            self.ctrl.add_professor_instanciado(p)
+            self.post_professor(p)
+
+        res = self.app.get('/api/professor')
+        data = json.loads(res.data.decode('utf-8'))
         
+        self.assertEqual(200, data['status'])
+        self.assertEqual(len(self.professores), len(data['data']))
     
-    def test__get_professores__professores(self):
-        professores = self.ctrl.get_professores()
-        self.assertEqual(len(professores), len(ProfessorDAO().db_fake), 'Deve ter apenas um professor')
-        self.assertIsInstance(professores[0], Professor, 'Deve conter um objeto da classe Professor')
+    def test__get_professor_idx__404(self):
+        data = self.get_professor(42)
 
-    def test__get_professor__professor(self):
-        professor = self.ctrl.get_professor(1)
-        self.assertAlmostEqual(professor, self.professores[0], 'Deveria retornar {}'.format(self.professores[0]))
-
-    def test__get_professor__none(self):
-        professor = self.ctrl.get_professor(66)
-        self.assertAlmostEqual(professor, None, 'Não deveria retornar um professor')
+        self.assertEqual(404, data['status'])
+        self.assertEqual('IdNotFound 42', data['message'])
     
-    def test__add_professor_instanciado__professor(self):
-        p = Professor(43, 'Thuzax', 'Thuzax@samurai.io', '(99) 433-334', 'dcc-43', ['bacharel','phd'])
-        self.ctrl.add_professor_instanciado(p)
-
-        p_ = self.ctrl.get_professor(43)
-        self.assertEqual(p, p_, 'Deveria ser o mesmo objeto')
-
-    def test__update_professor__true(self):
+    def test__get_professor_idx__200(self):
         p = self.professores[0]
-        p.nome = 'Ribolive'
+        d = self.post_professor(p)
+        idx = d['data']['idx']
 
-        status = self.ctrl.update_professor(1, p.__dict__)
-        self.assertTrue(status, 'Erro ao atualizar dado')
+        data = self.get_professor(idx)
+
+        self.assertEqual(200, data['status'])
+        self.assert_professor_equal(data['data'], p)
+    
+    def test__update_professor_idx__404(self):
+        data = self.patch_professor(42, {})    
+
+        self.assertEqual(404, data['status'])
+        self.assertEqual('IdNotFound 42', data['message'])
+    
+    def test__update_professor_idx__200(self):
+        p = self.professores[0]
+        d = self.post_professor(p)
+        idx = d['data']['idx']
+
+        mod = dict(nome='Jão Bara')
+        p['nome'] = 'Jão Bara'
+        data = self.patch_professor(idx, mod)
+
+        self.assertEqual(200, data['status'])
+        self.assert_professor_equal(data['data'], p)
+    
+    def test__delete_professor_idx__404(self):
+        data = self.delete_professor(42)    
+
+        self.assertEqual(404, data['status'])
+        self.assertEqual('IdNotFound 42', data['message'])
+    
+    def test__delete_professor_idx__200(self):
+        p = self.professores[0]
+        data = self.post_professor(p)
+        self.assertEqual(200, data['status'])
+
+        idx = data['data']['idx']
         
-        p_ = self.ctrl.get_professor(1)
-        self.assertEqual(p, p_, 'Deveria ser o mesmo objeto')
+        data = self.delete_professor(idx)
+        self.assertEqual(200, data['status'])
 
-    def test__update_professor__false(self):
-        p = self.professores[0]
-        p.nome = 'Ribolive'
+        data = self.get_professor(idx)
 
-        status = self.ctrl.update_professor(999, p.__dict__)
-        self.assertFalse(status, 'Dado nao deveria existir')
-
-    def test__delete_professor__true(self):
-        status = self.ctrl.delete_professor(1)
-        self.assertTrue(status, 'Dado deveria existir')
-
-    def test__delete_professor__false(self):
-        status = self.ctrl.delete_professor(5)
-        self.assertFalse(status, 'Dado nao deveria existir')
+        self.assertEqual(404, data['status'])
+        self.assertEqual('IdNotFound {}'.format(idx), data['message'])
