@@ -1,15 +1,13 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from .publicacao import Publicacao
+from app import db
 
 
-class Documento(Publicacao):
-    
-    def __init__(self, idx, nome, path):
+class Documento(db.Model):
+    idx = db.Column(db.Integer, primary_key=True)
+    path = db.Column(db.String(255), nullable=False, unique=True)
+
+    def __init__(self, path, idx=0):
         self.idx = idx
-        self.nome = nome
         self.path = path
-
+    
     def __repr__(self):
-        return '<Documento nome={} />'.format(self.nome)
+        return '<Documento idx={} />'.format(self.idx)
