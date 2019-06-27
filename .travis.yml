@@ -1,0 +1,15 @@
+dist: xenial
+language: python
+python:
+- '3.6'
+- '3.7'
+script: nose2
+deploy:
+  provider: heroku
+  api_key:
+    secure: RGEmRcOBC28FzwRxVNJ224l2SYdm4vBOMFz05Qdji/hEvtEcVk5TbaZI3/4hHtmCd93jAGV5OXhnUMszyPjSWeBBidXaZXvP8tyHcqTD5d7EVl6iJuD58cKsfp7/yOBicwz9uypOkpz0BwKgRbveshmvEZ6lFyxO3JNaavRo5H+Mez/1AVYIw4UqdqN3KhO51kLq46g5txJDSpnyW9Nw2njk7cb1+hYtN/iXV2EjqfudpHmAiQJa9z+atzl8bKJy3tgwWm5u0ES4goyRQRLbPymA0ZOa4IGWSwqgmHbfrfsQxgAvqQ5avRgzPTsi7KtwcUWNo94NZLaLzPzp7LR6ZFlsm7wU6KYAMg7O/9n4rBdvEv421ttL5E2RcbyhNDNToUoud+kbqTbUywo5fv8ZaWgfh+uFv0G3Bc5YlphMXS5bZaJyhwPYu+vvJkSAD2p4PJxtsk+U39t+vlP8rhNdHVG2MfRG0tfG1WdFVFjPMo/Tqlba8Fu4UwToUevzfSLoB5Cp51gxf3kFR+hOkzTsrb43mV0Xt3ywCWDeZPW1ylHxSLQEhYbNKh22HRmsRVWVFPBSopBCiYlJrPNPD/jLskutxFPEYZujP2gSYNCBLcfp+SEyKWKX+I/bTCLJ3GpO2i+zduDhXyc7YgAWJ7weXtXEoKXseTylLhpOF0070U8=
+  app: enigmatic-anchorage-17249
+  on:
+    repo: samurai-753/pw-back
+    branch: master
+    python: 3.7

@@ -1,13 +1,18 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from .tipo_publicacao import TipoPublicacao
+from app import db
 
 
-class Publicacao(object):
+class Publicacao(db.Model):
+    idx = db.Column(db.Integer, primary_key=True)
+    info = db.Column(db.Text, nullable=False)
+    tipo = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, idx, info, documento, tipo_publicacao=TipoPublicacao.UNDEFINED):
+    documento_idx = db.Column(
+        db.Integer, db.ForeignKey('documento.idx'), nullable=False
+    )
+    documento = db.relationship('Documento', uselist=False)
+
+    def __init__(self, info, tipo, idx=0, documento_idx=0):
         self.idx = idx
         self.info = info
-        self.documento = documento
-        self.tipo_publicacao = tipo_publicacao
+        self.tipo = tipo
+        self.documento_idx = documento_idx 
