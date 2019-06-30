@@ -1,15 +1,26 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from .tipo_disciplina import TipoDisciplina
+from app import db
+from .helpers import Disciplina_Documento
 
 
-class Disciplina(object):
+class Disciplina(db.Model):
+    idx = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(255), nullable=False)
+    tipo = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, nome, professor, tipo_disciplina=TipoDisciplina.UNDEFINED, documentos=[]):
+    professor_idx = db.Column(
+        db.Integer, db.ForeignKey('professor.idx'), nullable=False
+    )
+    professor = db.relationship('Professor', uselist=False)
+
+    documentos = db.relationship(
+        'Documento', secondary=Disciplina_Documento, lazy='subquery'
+    )
+
+    def __init__(self, nome, tipo, professor_idx, idx=0, documentos=[]):
+        self.idx = idx
         self.nome = nome
-        self.tipo_disciplina = tipo_disciplina
-        self.professor = professor
+        self.tipo_disciplina = tipo
+        self.professor_idx = professor_idx
         self.documentos = documentos
 
     def __repr__(self):
