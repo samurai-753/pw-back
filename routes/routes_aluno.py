@@ -62,10 +62,17 @@ def get_aluno_idx(idx):
     @apiUse AlunoNotFoundError
     """
 
-    return jsonify(
-        status=200,
-        data=ctrl_aluno.get_aluno(idx)
-    )
+    a = ctrl_aluno.get_aluno(idx)
+    if a:
+        return jsonify(
+            status=200,
+            data=a
+        )
+    else:
+        return jsonify(
+            status=404,
+            message='IdNotFound {}'.format(idx)
+        )
 
 
 @app_aluno.route('/api/aluno', methods=['POST'])
@@ -84,19 +91,26 @@ def post_aluno():
     @apiUse AlunoExemplo
     """
 
-    data = request.get_json()
+    try:
+        data = request.get_json()
+        
+        nome = data['nome']
+        email = data['email']
+        telefone = data.get('telefone')
+        resumo = data['resumo']
+
+        aluno_dict = ctrl_aluno.add_aluno(nome, email, telefone, resumo)
+
+        return jsonify(
+            status=200,
+            data=aluno_dict
+        )
     
-    nome = data['nome']
-    email = data['email']
-    telefone = data.get('telefone')
-    resumo = data['resumo']
-
-    aluno_dict = ctrl_aluno.add_aluno(nome, email, telefone, resumo)
-
-    return jsonify(
-        status=200,
-        data=aluno_dict
-    )
+    except KeyError as e:
+        return jsonify(
+            status=400,
+            message='KeyNotFound {}'.format(e)
+        )
 
 
 @app_aluno.route('/api/aluno/<idx>', methods=['PATCH'])
@@ -115,19 +129,26 @@ def update_aluno(idx):
     @apiUse AlunoNotFoundError
     """
 
-    data = request.get_json()
-    
-    nome = data.get('nome')
-    email = data.get('email')
-    telefone = data.get('telefone')
-    resumo = data.get('resumo')
+    try:
+        data = request.get_json()
+        
+        nome = data.get('nome')
+        email = data.get('email')
+        telefone = data.get('telefone')
+        resumo = data.get('resumo')
 
-    aluno_dict = ctrl_aluno.update_aluno(idx, nome, email, telefone, resumo)
+        aluno_dict = ctrl_aluno.update_aluno(idx, nome, email, telefone, resumo)
 
-    return jsonify(
-        status=200,
-        data=aluno_dict
-    )
+        return jsonify(
+            status=200,
+            data=aluno_dict
+        )
+            
+    except Exception as e:
+        return jsonify(
+            status=404,
+            message='IdNotFound {}'.format(idx)
+        )
 
 
 @app_aluno.route('/api/aluno/<idx>', methods=['DELETE'])
@@ -146,8 +167,14 @@ def delete_aluno(idx):
     @apiUse AlunoNotFoundError
     """
 
-    ctrl_aluno.delete_aluno(idx)
-    return jsonify(
-        status=200,
-        data={}
-    )
+    try:
+        ctrl_aluno.delete_aluno(idx)
+        return jsonify(
+            status=200,
+            data={}
+        )
+    except:
+        return jsonify(
+            status=404,
+            message='IdNotFound {}'.format(idx)
+        )

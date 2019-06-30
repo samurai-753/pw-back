@@ -54,6 +54,8 @@ class CtrlAluno:
     
     def update_aluno(self, idx, nome, email, telefone, resumo):
         aluno = Aluno.query.get(idx)
+        if not aluno:
+            raise Exception('idx')
 
         if nome:
             aluno.detalhes.nome = nome
