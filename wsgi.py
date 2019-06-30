@@ -5,6 +5,7 @@ from routes import *
 app.register_blueprint(app_main)
 app.register_blueprint(app_professor)
 app.register_blueprint(app_aluno)
+app.register_blueprint(app_extensao)
 
 
 if __name__ == '__main__':

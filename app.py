@@ -22,5 +22,6 @@ if __name__ == '__main__':
     app.register_blueprint(app_main)
     app.register_blueprint(app_professor)
     app.register_blueprint(app_aluno)
+    app.register_blueprint(app_extensao)
 
     app.run(host='0.0.0.0', port=port, debug=True)

@@ -1,7 +1,10 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
+from controller import CtrlExtensao
+from exception import ExceptionExtensaoCampoInvalido, ExceptionExtensaoNaoEncontrado
 
 
 app_extensao = Blueprint('extensao', __name__)
+ctrl_extensao = CtrlExtensao()
 
 
 @app_extensao.route('/api/extensao', methods=['GET'])
@@ -38,7 +41,7 @@ def get_extensao():
 
     return jsonify(
         status=200,
-        data={}
+        data=ctrl_extensao.get_extensoes()
     )
 
 
@@ -57,10 +60,18 @@ def get_extensao_idx(idx):
     @apiUse ExtensaoNotFoundError
     """
 
-    return jsonify(
-        status=200,
-        data={}
-    )
+    ext = ctrl_extensao.get_extensao(int(idx))
+    if ext:
+        return jsonify(
+            status=200,
+            data=ext
+        )
+    else:
+        e = ExceptionExtensaoNaoEncontrado('idx', idx)
+        return jsonify(
+            status=404,
+            message=str(e)
+        )
 
 
 @app_extensao.route('/api/extensao', methods=['POST'])
@@ -78,10 +89,19 @@ def post_extensao():
     @apiUse ExtensaoExemplo
     """
 
-    return jsonify(
-        status=200,
-        data={}
-    )
+    data = request.get_json()
+
+    try:
+        extensao = ctrl_extensao.add_extensao(data)
+        return jsonify(
+            status=200,
+            data=extensao
+        )
+    except ExceptionExtensaoCampoInvalido as e:
+        return jsonify(
+            status=400,
+            message=str(e)
+        )
 
 
 @app_extensao.route('/api/extensao/<idx>', methods=['PATCH'])
@@ -99,10 +119,19 @@ def update_extensao(idx):
     @apiUse ExtensaoNotFoundError
     """
 
-    return jsonify(
-        status=200,
-        data={}
-    )
+    data = request.get_json()
+
+    try:
+        ext = ctrl_extensao.update_extensao(idx, data)
+        return jsonify(
+            status=200,
+            data=ext
+        )
+    except ExceptionExtensaoNaoEncontrado as e:
+        return jsonify(
+            status=404,
+            message=str(e)
+        )
 
 
 @app_extensao.route('/api/extensao/<idx>', methods=['DELETE'])
@@ -118,7 +147,13 @@ def delete_extensao(idx):
     @apiUse ExtensaoNotFoundError
     """
 
-    return jsonify(
-        status=200,
-        data={}
-    )
+    try:
+        ctrl_extensao.delete_extensao(idx)
+        return jsonify(
+            status=200,
+        )
+    except ExceptionExtensaoNaoEncontrado as e:
+        return jsonify(
+            status=404,
+            message=str(e)
+        )

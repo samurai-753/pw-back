@@ -5,14 +5,14 @@ from .helpers import Extensao_Publicaco
 class Extensao(db.Model):
     idx = db.Column(db.Integer, primary_key=True)
     tipo = db.Column(db.Integer, nullable=False)
-    inicio = db.Column(db.DateTime, nullable=False)
-    fim = db.Column(db.DateTime, nullable=False)
+    inicio = db.Column(db.String(10), nullable=False)
+    fim = db.Column(db.String(10), nullable=False)
 
     pessoa_idx = db.Column(
         db.Integer, db.ForeignKey('pessoa.idx'), nullable=False
     )
     pessoa = db.relationship(
-        'Pessoa', backref='extensao', lazy=True, uselist=False
+        'Pessoa', lazy=True, uselist=False
     )
 
     publicacoes = db.relationship(
