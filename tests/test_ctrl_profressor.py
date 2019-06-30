@@ -11,6 +11,7 @@ class TestCtrlProfessor(unittest.TestCase):
 
     def setUp(self):
         app.register_blueprint(app_professor)
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         self.app = app.test_client()
         db.create_all()
 

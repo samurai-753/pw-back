@@ -9,12 +9,16 @@ class Projeto(db.Model):
     orientador_idx = db.Column(
         db.Integer, db.ForeignKey('professor.idx'), nullable=False
     )
-    orientador = db.relationship('Professor', uselist=False)
+    orientador = db.relationship(
+        'Professor', uselist=False, foreign_keys=[orientador_idx]
+    )
 
     coorientador_idx = db.Column(
         db.Integer, db.ForeignKey('professor.idx'), nullable=True
     )
-    coorientador = db.relationship('Professor', uselist=False)
+    coorientador = db.relationship(
+        'Professor', uselist=False, foreign_keys=[coorientador_idx]
+    )
 
     alunos = db.relationship(
         'Aluno', secondary=Projeto_Aluno, lazy='subquery'
