@@ -11,6 +11,7 @@ app = Flask(__name__)
 # Config the data base
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI', 'sqlite://')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['DEBUG'] = True
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 

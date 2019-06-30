@@ -13,6 +13,7 @@
 flask
 flask-marshmallow
 flask-sqlalchemy
+gunicorn
 marshmallow-sqlalchemy
 nose2
 pymysql
