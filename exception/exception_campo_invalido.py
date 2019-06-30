@@ -8,7 +8,7 @@ class ExceptionCampoInvalido(Exception):
     def __str__(self):
         text = "Erro: " 
         text += str(self.nome_classe) + " não tem o campo " 
-        text += "\"" + str(self.campo) + "\""
+        text += str(self.campo)
         text += "\n"
         return text
 
@@ -65,9 +65,3 @@ class ExceptionPublicacaoCampoInvalido(ExceptionCampoInvalido):
 
     def __init__(self, campo):
         ExceptionCampoInvalido.__init__(self, "Publicacao", campo)
-
-
-try:
-    raise ExceptionPublicacaoCampoInvalido("balela")
-except Exception as e:
-    print(e)

@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from controller import CtrlAluno, CtrlPessoa
 from model import Aluno, Pessoa
 from pprint import pprint
+from exception import ExceptionAlunoNaoEncontrado, ExceptionAlunoCampoInvalido
 
 
 app_aluno = Blueprint('aluno', __name__)
@@ -69,9 +70,10 @@ def get_aluno_idx(idx):
             data=a
         )
     else:
+        e = ExceptionAlunoNaoEncontrado('idx', idx)
         return jsonify(
             status=404,
-            message='IdNotFound {}'.format(idx)
+            message=str(e)
         )
 
 
@@ -106,10 +108,11 @@ def post_aluno():
             data=aluno_dict
         )
     
-    except KeyError as e:
+    except KeyError as ke:
+        e = ExceptionAlunoCampoInvalido(ke)
         return jsonify(
             status=400,
-            message='KeyNotFound {}'.format(e)
+            message=str(e)
         )
 
 
@@ -144,10 +147,10 @@ def update_aluno(idx):
             data=aluno_dict
         )
             
-    except Exception as e:
+    except ExceptionAlunoNaoEncontrado as e:
         return jsonify(
             status=404,
-            message='IdNotFound {}'.format(idx)
+            message=str(e)
         )
 
 
@@ -174,7 +177,8 @@ def delete_aluno(idx):
             data={}
         )
     except:
+        e = ExceptionAlunoNaoEncontrado('idx', idx) 
         return jsonify(
             status=404,
-            message='IdNotFound {}'.format(idx)
+            message=str(e)
         )

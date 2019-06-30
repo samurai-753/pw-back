@@ -5,6 +5,7 @@ from app import app, db
 from routes import app_aluno
 from model import Pessoa, Aluno
 from schema import SchemaPessoa, SchemaAluno
+from exception import ExceptionAlunoNaoEncontrado,ExceptionAlunoCampoInvalido
 
 
 class TestAluno(unittest.TestCase):
@@ -85,7 +86,9 @@ class TestAluno(unittest.TestCase):
         data = self.post_aluno(p)
 
         self.assertEqual(400, data['status'])
-        self.assertEqual("KeyNotFound 'resumo'", data['message'])
+
+        e = ExceptionAlunoCampoInvalido('\'resumo\'')
+        self.assertEqual(str(e), data['message'])
     
     def test__get_alunos__vazio(self):
         res = self.app.get('/api/aluno')
@@ -108,7 +111,9 @@ class TestAluno(unittest.TestCase):
         data = self.get_aluno(42)
 
         self.assertEqual(404, data['status'])
-        self.assertEqual('IdNotFound 42', data['message'])
+
+        e = ExceptionAlunoNaoEncontrado('idx', 42)
+        self.assertEqual(str(e), data['message'])
     
     def test__get_aluno_idx__200(self):
         p = self.alunos[0]
@@ -124,7 +129,8 @@ class TestAluno(unittest.TestCase):
         data = self.patch_aluno(42, {})
 
         self.assertEqual(404, data['status'])
-        self.assertEqual('IdNotFound 42', data['message'])
+        e = ExceptionAlunoNaoEncontrado('idx', 42)
+        self.assertEqual(str(e), data['message'])
     
     def test__update_aluno_idx__200(self):
         p = self.alunos[0]
@@ -142,7 +148,8 @@ class TestAluno(unittest.TestCase):
         data = self.delete_aluno(42)    
 
         self.assertEqual(404, data['status'])
-        self.assertEqual('IdNotFound 42', data['message'])
+        e = ExceptionAlunoNaoEncontrado('idx', 42)
+        self.assertEqual(str(e), data['message'])
     
     def test__delete_aluno_idx__200(self):
         p = self.alunos[0]
@@ -157,4 +164,5 @@ class TestAluno(unittest.TestCase):
         data = self.get_aluno(idx)
 
         self.assertEqual(404, data['status'])
-        self.assertEqual('IdNotFound {}'.format(idx), data['message'])
+        e = ExceptionAlunoNaoEncontrado('idx', idx)
+        self.assertEqual(str(e), data['message'])
