@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 pylint = "*"
 pipenv-to-requirements = "*"
+pylint-flask = "*"
+pylint-sqlalchemy = "*"
 
 [packages]
 flask = "*"

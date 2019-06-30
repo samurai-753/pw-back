@@ -4,8 +4,7 @@ from .documento import Documento
 from .extensao import Extensao
 from .pessoa import Pessoa
 from .professor import Professor
-from .projeto_pesquisa import ProjetoPesquisa
+from .projeto import Projeto
 from .publicacao import Publicacao
-from .tipo_disciplina import TipoDisciplina
-from .tipo_extensao import TipoExtensao
-from .tipo_publicacao import TipoPublicacao
+from .helpers import Disciplina_Documento
+from .helpers import Extensao_Publicaco
