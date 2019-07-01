@@ -23,6 +23,7 @@ class SchemaAluno(ma.ModelSchema):
 class SchemaDocumento(ma.ModelSchema):
     class Meta:
         model = Documento
+        exclude = ('path', )
 
 class SchemaPublicacao(ma.ModelSchema):
     documento = ma.Nested(SchemaDocumento, exclude=('idx', ))

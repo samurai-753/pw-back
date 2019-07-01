@@ -7,10 +7,12 @@ from flask_marshmallow import Marshmallow
 
 # Init the app
 app = Flask(__name__)
+UPLOAD_FOLDER = './files'
 
 # Config the data base
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI', 'sqlite://')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
@@ -23,5 +25,6 @@ if __name__ == '__main__':
     app.register_blueprint(app_professor)
     app.register_blueprint(app_aluno)
     app.register_blueprint(app_extensao)
+    app.register_blueprint(app_documento)
 
     app.run(host='0.0.0.0', port=port, debug=True)
