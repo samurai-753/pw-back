@@ -37,3 +37,10 @@ class SchemaExtensao(ma.ModelSchema):
 
     class Meta:
         model = Extensao
+
+class SchemaDisciplina(ma.ModelSchema):
+    # documentos = ma.Nested(SchemaDocumento)
+    # professor = ma.Nested(SchemaProfessor)
+
+    class Meta:
+        model = Disciplina

@@ -27,5 +27,6 @@ if __name__ == '__main__':
     app.register_blueprint(app_extensao)
     app.register_blueprint(app_documento)
     app.register_blueprint(app_publicacao)
+    app.register_blueprint(app_disciplina)
 
     app.run(host='0.0.0.0', port=port, debug=True)

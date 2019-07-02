@@ -14,6 +14,11 @@ class CtrlDocumento:
         self.schema_documento = SchemaDocumento(strict=True)
         self.schema_documentos = SchemaDocumento(strict=True, many=True)
 
+        try:
+            os.mkdir(UPLOAD_FOLDER)
+        except FileExistsError:
+            pass
+
     def calc_md5_file(self, fname):
         md5 = hashlib.md5()
         with open(fname, 'rb') as f:
@@ -60,6 +65,8 @@ class CtrlDocumento:
         documento = Documento.query.get(idx)
         if not documento:
             raise Exception('idx')
+        
+        os.remove( documento.path)
 
         db.session.delete(documento)
         db.session.commit()

@@ -1,7 +1,10 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
+from controller import CtrlDisciplina
+from exception import ExceptionDisciplinaNaoEncontrado, ExceptionDisciplinaCampoInvalido
 
 
 app_disciplina = Blueprint('disciplina', __name__)
+ctrl_disciplina = CtrlDisciplina()
 
 
 @app_disciplina.route('/api/disciplina', methods=['GET'])
@@ -37,7 +40,7 @@ def get_disciplina():
 
     return jsonify(
         status=200,
-        data={}
+        data=ctrl_disciplina.get_disciplinas()
     )
 
 
@@ -56,10 +59,17 @@ def get_disciplina_idx(idx):
     @apiUse DisciplinaNotFoundError
     """
 
-    return jsonify(
-        status=200,
-        data={}
-    )
+    try:
+        dis = ctrl_disciplina.get_disciplina(idx)
+        return jsonify(
+            status=200,
+            data=dis
+        )
+    except ExceptionDisciplinaNaoEncontrado as e:
+        return jsonify(
+            status=404,
+            message=str(e)
+        )
 
 
 @app_disciplina.route('/api/disciplina', methods=['POST'])
@@ -77,10 +87,18 @@ def post_disciplina():
     @apiUse DisciplinaExemplo
     """
 
-    return jsonify(
-        status=200,
-        data={}
-    )
+    try:
+        data = request.get_json()
+        dis = ctrl_disciplina.add_disciplina(data)
+        return jsonify(
+            status=200,
+            data=dis
+        )
+    except ExceptionDisciplinaCampoInvalido as e:
+        return jsonify(
+            status=400,
+            message=str(e)
+        )
 
 
 @app_disciplina.route('/api/disciplina/<idx>', methods=['PATCH'])
@@ -98,10 +116,18 @@ def update_disciplina(idx):
     @apiUse DisciplinaNotFoundError
     """
 
-    return jsonify(
-        status=200,
-        data={}
-    )
+    try:
+        data = request.get_json()
+        dis = ctrl_disciplina.update_disciplina(idx, data)
+        return jsonify(
+            status=200,
+            data=dis
+        )
+    except ExceptionDisciplinaNaoEncontrado as e:
+        return jsonify(
+            status=404,
+            message=str(e)
+        )
 
 
 @app_disciplina.route('/api/disciplina/<idx>', methods=['DELETE'])
@@ -117,7 +143,15 @@ def delete_disciplina(idx):
     @apiUse DisciplinaNotFoundError
     """
 
-    return jsonify(
-        status=200,
-        data={}
-    )
+    try:
+        data = request.get_json()
+        dis = ctrl_disciplina.delete_disciplina(idx)
+        return jsonify(
+            status=200,
+            data=dis
+        )
+    except ExceptionDisciplinaNaoEncontrado as e:
+        return jsonify(
+            status=404,
+            message=str(e)
+        )
