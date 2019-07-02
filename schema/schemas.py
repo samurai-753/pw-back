@@ -26,9 +26,9 @@ class SchemaDocumento(ma.ModelSchema):
         exclude = ('path', )
 
 class SchemaPublicacao(ma.ModelSchema):
-    documento = ma.Nested(SchemaDocumento, exclude=('idx', ))
+    documento = ma.Nested(SchemaDocumento)
 
-    class Mata:
+    class Meta:
         model = Publicacao
 
 class SchemaExtensao(ma.ModelSchema):

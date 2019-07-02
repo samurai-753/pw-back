@@ -3,3 +3,4 @@ from .routes_main import app_main
 from .routes_aluno import app_aluno
 from .routes_extensao import app_extensao
 from .routes_documento import app_documento
+from .routes_publicacao import app_publicacao

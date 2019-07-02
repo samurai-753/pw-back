@@ -59,10 +59,11 @@ def get_documento_idx(idx):
     @apiUse DocumentoNotFoundError
     """
 
+
     doc = ctrl_documento.get_documento(idx)
     if doc:
-        print(doc.name, doc.path)
-        return send_file(doc.path, attachment_filename=doc.nome, as_attachment=True)
+        download = request.args.get('download', False)
+        return send_file(doc.path, attachment_filename=doc.nome, as_attachment=download)
     else:
         e = ExceptionDocumentoNaoEncontrado('idx', idx)
         return jsonify(

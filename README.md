@@ -18,7 +18,7 @@ export DB_URI="mysql+pymysql://myuser:pass@example.com:3306/database"
 Para criar as tableas na primeira execução execute o segundo comando
 ```
 pipenv shell
-python3 -c "import app; impot model; app.db.create_all()"
+python3 -c "import app; import model; app.db.create_all()"
 ```
 
 Para executar os teste localmente use o comando

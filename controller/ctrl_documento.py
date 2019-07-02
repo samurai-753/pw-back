@@ -60,8 +60,6 @@ class CtrlDocumento:
         documento = Documento.query.get(idx)
         if not documento:
             raise Exception('idx')
-            
-        self.ctrl_pessoa.delete_pessoa(documento.detalhes_idx)
 
         db.session.delete(documento)
         db.session.commit()
