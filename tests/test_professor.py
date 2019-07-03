@@ -2,18 +2,20 @@ import unittest
 import json
 from pprint import pprint
 from app import app, db
-from routes import app_professor
-from model import Professor, Pessoa
+from routes import app_professor, app_main
+from model import Professor, Pessoa, User
 from schema import SchemaPessoa, SchemaProfessor
 
 
-class TestCtrlProfessor(unittest.TestCase):
+class TestProfessor(unittest.TestCase):
 
     def setUp(self):
+        app.register_blueprint(app_main)
         app.register_blueprint(app_professor)
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         self.app = app.test_client()
         db.create_all()
+        self.get_token()
 
         self.schema_professor = SchemaProfessor(strict=True)
         self.schema_professores = SchemaProfessor(strict=True, many=True)
@@ -27,6 +29,18 @@ class TestCtrlProfessor(unittest.TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+
+    def get_token(self):
+        user = User('admin', 'admin')
+        db.session.add(user)
+        db.session.commit()
+
+        res = self.app.post(
+            '/login',
+            data=json.dumps(dict(email='admin', password='admin')),
+            content_type='application/json'
+        )
+        self.token = res.json['access_token']
 
     def dump_professor(self, person):
         return self.schema_professor.dump(person).data
@@ -45,7 +59,8 @@ class TestCtrlProfessor(unittest.TestCase):
         res = self.app.post(
             '/api/professor',
             data=json.dumps(professor),
-            content_type='application/json'
+            content_type='application/json',
+            headers={ 'Authorization': self.token }
         )
 
         return json.loads(res.data.decode('utf-8'))
@@ -54,14 +69,16 @@ class TestCtrlProfessor(unittest.TestCase):
         res = self.app.patch(
             '/api/professor/{}'.format(idx),
             data=json.dumps(dados),
-            content_type='application/json'
+            content_type='application/json',
+            headers={ 'Authorization': self.token }
         )
 
         return json.loads(res.data.decode('utf-8'))
 
     def delete_professor(self, idx):
         res = self.app.delete(
-            '/api/professor/{}'.format(idx)
+            '/api/professor/{}'.format(idx),
+            headers={ 'Authorization': self.token }
         )
 
         return json.loads(res.data.decode('utf-8'))

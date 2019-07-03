@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required
 from controller import CtrlDisciplina
 from exception import ExceptionDisciplinaNaoEncontrado, ExceptionDisciplinaCampoInvalido
 
@@ -73,6 +74,7 @@ def get_disciplina_idx(idx):
 
 
 @app_disciplina.route('/api/disciplina', methods=['POST'])
+@jwt_required
 def post_disciplina():
     """
     @api {post} /api/disciplina/ Adiciona disciplina
@@ -102,6 +104,7 @@ def post_disciplina():
 
 
 @app_disciplina.route('/api/disciplina/<idx>', methods=['PATCH'])
+@jwt_required
 def update_disciplina(idx):
     """
     @api {patch} /api/disciplina/:id Atualiza disciplina
@@ -131,6 +134,7 @@ def update_disciplina(idx):
 
 
 @app_disciplina.route('/api/disciplina/<idx>', methods=['DELETE'])
+@jwt_required
 def delete_disciplina(idx):
     """
     @api {delete} /api/disciplina/:id Deleta disciplina

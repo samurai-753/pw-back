@@ -2,8 +2,8 @@ import unittest
 import json
 from pprint import pprint
 from app import app, db
-from routes import app_aluno
-from model import Pessoa, Aluno
+from routes import app_aluno, app_main
+from model import Pessoa, Aluno, User
 from schema import SchemaPessoa, SchemaAluno
 from exception import ExceptionAlunoNaoEncontrado,ExceptionAlunoCampoInvalido
 
@@ -12,9 +12,11 @@ class TestAluno(unittest.TestCase):
 
     def setUp(self):
         app.register_blueprint(app_aluno)
+        app.register_blueprint(app_main)
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         self.app = app.test_client()
         db.create_all()
+        self.get_token()
 
         self.schema_aluno = SchemaAluno(strict=True)
         self.schema_alunos = SchemaAluno(strict=True, many=True)
@@ -28,6 +30,18 @@ class TestAluno(unittest.TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+
+    def get_token(self):
+        user = User('admin', 'admin')
+        db.session.add(user)
+        db.session.commit()
+
+        res = self.app.post(
+            '/login',
+            data=json.dumps(dict(email='admin', password='admin')),
+            content_type='application/json'
+        )
+        self.token = res.json['access_token']
 
     def dump_aluno(self, person):
         return self.schema_aluno.dump(person).data
@@ -46,7 +60,8 @@ class TestAluno(unittest.TestCase):
         res = self.app.post(
             '/api/aluno',
             data=json.dumps(aluno),
-            content_type='application/json'
+            content_type='application/json',
+            headers={ 'Authorization': self.token }
         )
 
         return json.loads(res.data.decode('utf-8'))
@@ -55,14 +70,16 @@ class TestAluno(unittest.TestCase):
         res = self.app.patch(
             '/api/aluno/{}'.format(idx),
             data=json.dumps(dados),
-            content_type='application/json'
+            content_type='application/json',
+            headers={ 'Authorization': self.token }
         )
 
         return json.loads(res.data.decode('utf-8'))
 
     def delete_aluno(self, idx):
         res = self.app.delete(
-            '/api/aluno/{}'.format(idx)
+            '/api/aluno/{}'.format(idx),
+            headers={ 'Authorization': self.token }
         )
 
         return json.loads(res.data.decode('utf-8'))

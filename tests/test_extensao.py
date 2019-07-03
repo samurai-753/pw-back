@@ -3,8 +3,8 @@ import json
 import datetime as dt
 from pprint import pprint
 from app import app, db
-from routes import app_extensao
-from model import Extensao
+from routes import app_extensao, app_main
+from model import Extensao, User
 from schema import SchemaExtensao
 from exception import ExceptionExtensaoCampoInvalido, ExceptionExtensaoNaoEncontrado
 
@@ -13,9 +13,11 @@ class TestExtensao(unittest.TestCase):
 
     def setUp(self):
         app.register_blueprint(app_extensao)
+        app.register_blueprint(app_main)
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         self.app = app.test_client()
         db.create_all()
+        self.get_token()
 
         self.schema_extensao = SchemaExtensao(strict=True)
         self.schema_extensoes = SchemaExtensao(strict=True, many=True)
@@ -31,6 +33,18 @@ class TestExtensao(unittest.TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+    
+    def get_token(self):
+        user = User('admin', 'admin')
+        db.session.add(user)
+        db.session.commit()
+
+        res = self.app.post(
+            '/login',
+            data=json.dumps(dict(email='admin', password='admin')),
+            content_type='application/json'
+        )
+        self.token = res.json['access_token']
 
     def dump_extensao(self, person):
         return self.schema_extensao.dump(person).data
@@ -40,7 +54,8 @@ class TestExtensao(unittest.TestCase):
     
     def get_extensao(self, idx):
         res = self.app.get(
-            '/api/extensao/{}'.format(idx)
+            '/api/extensao/{}'.format(idx),
+            headers={ 'Authorization': self.token }
         )
 
         return json.loads(res.data.decode('utf-8'))
@@ -49,7 +64,8 @@ class TestExtensao(unittest.TestCase):
         res = self.app.post(
             '/api/extensao',
             data=json.dumps(extensao, default=str),
-            content_type='application/json'
+            content_type='application/json',
+            headers={ 'Authorization': self.token }
         )
 
         return json.loads(res.data.decode('utf-8'))
@@ -58,14 +74,16 @@ class TestExtensao(unittest.TestCase):
         res = self.app.patch(
             '/api/extensao/{}'.format(idx),
             data=json.dumps(dados),
-            content_type='application/json'
+            content_type='application/json',
+            headers={ 'Authorization': self.token }
         )
 
         return json.loads(res.data.decode('utf-8'))
 
     def delete_extensao(self, idx):
         res = self.app.delete(
-            '/api/extensao/{}'.format(idx)
+            '/api/extensao/{}'.format(idx),
+            headers={ 'Authorization': self.token }
         )
 
         return json.loads(res.data.decode('utf-8'))

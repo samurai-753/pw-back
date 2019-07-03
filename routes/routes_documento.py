@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request, send_from_directory, send_file
+from flask_jwt_extended import jwt_required
 from controller import CtrlDocumento
 from exception import ExceptionDocumentoNaoEncontrado
 from app import UPLOAD_FOLDER
@@ -73,6 +74,7 @@ def get_documento_idx(idx):
 
 
 @app_documento.route('/api/documento', methods=['POST'])
+@jwt_required
 def post_documento():
     """
     @api {post} /api/documento/ Adiciona Documento
@@ -97,6 +99,7 @@ def post_documento():
 
 
 @app_documento.route('/api/documento/<idx>', methods=['PATCH'])
+@jwt_required
 def update_documento(idx):
     """
     @api {patch} /api/documento/:id Atualiza Documento
@@ -127,6 +130,7 @@ def update_documento(idx):
 
 
 @app_documento.route('/api/documento/<idx>', methods=['DELETE'])
+@jwt_required
 def delete_documento(idx):
     """
     @api {delete} /api/documento/:id Deleta Projeto de Pesquisa

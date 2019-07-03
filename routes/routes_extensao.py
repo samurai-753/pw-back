@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required
 from controller import CtrlExtensao
 from exception import ExceptionExtensaoCampoInvalido, ExceptionExtensaoNaoEncontrado
 
@@ -75,6 +76,7 @@ def get_extensao_idx(idx):
 
 
 @app_extensao.route('/api/extensao', methods=['POST'])
+@jwt_required
 def post_extensao():
     """
     @api {post} /api/extensao/ Adiciona Extensao
@@ -105,6 +107,7 @@ def post_extensao():
 
 
 @app_extensao.route('/api/extensao/<idx>', methods=['PATCH'])
+@jwt_required
 def update_extensao(idx):
     """
     @api {patch} /api/extensao/:id Atualiza Extensao
@@ -135,6 +138,7 @@ def update_extensao(idx):
 
 
 @app_extensao.route('/api/extensao/<idx>', methods=['DELETE'])
+@jwt_required
 def delete_extensao(idx):
     """
     @api {delete} /api/extensao/:id Deleta Extensao

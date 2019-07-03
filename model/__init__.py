@@ -8,3 +8,4 @@ from .projeto import Projeto
 from .publicacao import Publicacao
 from .helpers import Disciplina_Documento
 from .helpers import Extensao_Publicaco
+from .user import User
