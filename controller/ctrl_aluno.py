@@ -3,6 +3,7 @@ from app import db
 from model import Aluno, Pessoa
 from schema import SchemaAluno
 from sqlalchemy.exc import IntegrityError
+from exception import ExceptionAlunoNaoEncontrado
 from .ctrl_pessoa import CtrlPessoa
 
 
@@ -54,6 +55,8 @@ class CtrlAluno:
     
     def update_aluno(self, idx, nome, email, telefone, resumo):
         aluno = Aluno.query.get(idx)
+        if not aluno:
+            raise ExceptionAlunoNaoEncontrado('idx', idx)
 
         if nome:
             aluno.detalhes.nome = nome

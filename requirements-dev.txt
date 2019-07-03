@@ -10,11 +10,7 @@
 # `Pipfile.lock` and then regenerate `requirements*.txt`.
 ################################################################################
 
-flask
-flask-jwt-extended
-flask-marshmallow
-flask-sqlalchemy
-gunicorn
-marshmallow-sqlalchemy
-nose2
-pymysql
+pipenv-to-requirements
+pylint
+pylint-flask
+pylint-sqlalchemy

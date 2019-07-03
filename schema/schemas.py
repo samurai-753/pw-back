@@ -1,5 +1,5 @@
 from app import ma
-from model import Pessoa, Aluno, Professor, Documento, Publicacao
+from model import *
 
 
 class SchemaPessoa(ma.ModelSchema):
@@ -23,9 +23,24 @@ class SchemaAluno(ma.ModelSchema):
 class SchemaDocumento(ma.ModelSchema):
     class Meta:
         model = Documento
+        exclude = ('path', )
 
 class SchemaPublicacao(ma.ModelSchema):
-    documento = ma.Nested(SchemaDocumento, exclude=('idx', ))
+    documento = ma.Nested(SchemaDocumento)
 
-    class Mata:
+    class Meta:
         model = Publicacao
+
+class SchemaExtensao(ma.ModelSchema):
+    pessoa = ma.Nested(SchemaPessoa)
+    publicacoes = ma.Nested(SchemaPublicacao)
+
+    class Meta:
+        model = Extensao
+
+class SchemaDisciplina(ma.ModelSchema):
+    # documentos = ma.Nested(SchemaDocumento)
+    # professor = ma.Nested(SchemaProfessor)
+
+    class Meta:
+        model = Disciplina

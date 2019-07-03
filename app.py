@@ -3,16 +3,22 @@ import os
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_jwt_extended import JWTManager
 
 
 # Init the app
 app = Flask(__name__)
+UPLOAD_FOLDER = './files'
 
 # Config the data base
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI', 'sqlite://')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+app.config['JWT_SECRET_KEY'] = os.getenv('DB_URI', 'すごい')
+app.config['JWT_HEADER_TYPE'] = ''
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+jwt = JWTManager(app)
 
 
 if __name__ == '__main__':
@@ -22,5 +28,9 @@ if __name__ == '__main__':
     app.register_blueprint(app_main)
     app.register_blueprint(app_professor)
     app.register_blueprint(app_aluno)
+    app.register_blueprint(app_extensao)
+    app.register_blueprint(app_documento)
+    app.register_blueprint(app_publicacao)
+    app.register_blueprint(app_disciplina)
 
     app.run(host='0.0.0.0', port=port, debug=True)

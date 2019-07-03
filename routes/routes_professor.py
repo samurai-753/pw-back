@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required, get_current_user
 from controller import CtrlProfessor, CtrlPessoa
 from model import Professor, Pessoa
 from pprint import pprint
@@ -79,6 +80,7 @@ def get_professor(idx):
 
 
 @app_professor.route('/api/professor', methods=['POST'])
+@jwt_required
 def post_professor():
     """
     @api {post} /api/professor/:id Adiciona professor
@@ -117,6 +119,7 @@ def post_professor():
 
 
 @app_professor.route('/api/professor/<idx>', methods=['PATCH'])
+@jwt_required
 def update_professor(idx):
     """
     @api {patch} /api/professor/:id Atualiza professor
@@ -155,6 +158,7 @@ def update_professor(idx):
 
 
 @app_professor.route('/api/professor/<idx>', methods=['DELETE'])
+@jwt_required
 def delete_professor(idx):
     """
     @api {delete} /api/professor/:id Deleta professor

@@ -5,7 +5,7 @@ from .helpers import Disciplina_Documento
 class Disciplina(db.Model):
     idx = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(255), nullable=False)
-    tipo = db.Column(db.Integer, nullable=False)
+    tipo = db.Column(db.String(4), nullable=False)
 
     professor_idx = db.Column(
         db.Integer, db.ForeignKey('professor.idx'), nullable=False
@@ -19,7 +19,7 @@ class Disciplina(db.Model):
     def __init__(self, nome, tipo, professor_idx, idx=0, documentos=[]):
         self.idx = idx
         self.nome = nome
-        self.tipo_disciplina = tipo
+        self.tipo = tipo
         self.professor_idx = professor_idx
         self.documentos = documentos
 

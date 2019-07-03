@@ -1,7 +1,12 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request, send_from_directory, send_file
+from flask_jwt_extended import jwt_required
+from controller import CtrlDocumento
+from exception import ExceptionDocumentoNaoEncontrado
+from app import UPLOAD_FOLDER
 
 
 app_documento = Blueprint('documento', __name__)
+ctrl_documento = CtrlDocumento()
 
 
 @app_documento.route('/api/documento', methods=['GET'])
@@ -33,9 +38,10 @@ def get_documento():
         }
     """
 
+    docs = ctrl_documento.get_documentos()
     return jsonify(
         status=200,
-        data={}
+        data=docs
     )
 
 
@@ -54,13 +60,21 @@ def get_documento_idx(idx):
     @apiUse DocumentoNotFoundError
     """
 
-    return jsonify(
-        status=200,
-        data={}
-    )
+
+    doc = ctrl_documento.get_documento(idx)
+    if doc:
+        download = request.args.get('download', False)
+        return send_file(doc.path, attachment_filename=doc.nome, as_attachment=download)
+    else:
+        e = ExceptionDocumentoNaoEncontrado('idx', idx)
+        return jsonify(
+            status=404,
+            message=str(e)
+        )
 
 
 @app_documento.route('/api/documento', methods=['POST'])
+@jwt_required
 def post_documento():
     """
     @api {post} /api/documento/ Adiciona Documento
@@ -75,13 +89,17 @@ def post_documento():
     @apiUse DocumentoExemplo
     """
 
+    src_file = request.files['file']
+    doc = ctrl_documento.add_documento(src_file)
+
     return jsonify(
         status=200,
-        data={}
+        data=doc
     )
 
 
 @app_documento.route('/api/documento/<idx>', methods=['PATCH'])
+@jwt_required
 def update_documento(idx):
     """
     @api {patch} /api/documento/:id Atualiza Documento
@@ -96,13 +114,23 @@ def update_documento(idx):
     @apiUse DocumentoNotFoundError
     """
 
-    return jsonify(
-        status=200,
-        data={}
-    )
+    data = request.get_json()
+
+    try:
+        doc = ctrl_documento.update_documento(idx, data)
+        return jsonify(
+            status=200,
+            data=doc
+        )
+    except ExceptionDocumentoNaoEncontrado as e:
+        return jsonify(
+            status=404,
+            message=str(e)
+        )
 
 
 @app_documento.route('/api/documento/<idx>', methods=['DELETE'])
+@jwt_required
 def delete_documento(idx):
     """
     @api {delete} /api/documento/:id Deleta Projeto de Pesquisa
@@ -115,7 +143,14 @@ def delete_documento(idx):
     @apiUse DocumentoNotFoundError
     """
 
-    return jsonify(
-        status=200,
-        data={}
-    )
+    try:
+        ctrl_documento.delete_documento(idx)
+        return jsonify(
+            status=200,
+        )
+    except:
+        e = ExceptionDocumentoNaoEncontrado('idx', idx)
+        return jsonify(
+            status=404,
+            message=str(e)
+        )
