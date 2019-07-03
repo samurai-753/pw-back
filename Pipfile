@@ -18,6 +18,7 @@ pymysql = "*"
 nose2 = "*"
 gunicorn = "*"
 flask-jwt-extended = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3"

@@ -4,10 +4,12 @@ from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 
 # Init the app
 app = Flask(__name__)
+CORS(app)
 UPLOAD_FOLDER = './files'
 
 # Config the data base
