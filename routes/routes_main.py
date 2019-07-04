@@ -24,9 +24,14 @@ def login():
 
     access_token = create_access_token(identity=email)
 
+    try:
+        nome = user.professor.detalhes.nome
+    except:
+        nome = email
+
     return jsonify(
         access_token=access_token,
-        nome=user.professor.detalhes.nome
+        nome=nome
     )
 
 @app_main.route('/api/check', methods=['POST', 'GET'])

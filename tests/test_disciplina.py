@@ -26,9 +26,9 @@ class TestDisciplina(unittest.TestCase):
         self.schema_disciplinas = SchemaDisciplina(strict=True, many=True)
         
         professores = [
-            dict(nome='Gabriel Ribolive', email='ribolive@samurai.io', telefone='123', sala='dcc08'),
-            dict(nome='Arthur Cruz', email='thuzax@samurai.io', telefone='123', sala='dcc47'),
-            dict(nome='Breno Gomes', email='brenex@samurai.io', telefone='123', sala='dcc33'),
+            dict(nome='Gabriel Ribolive', email='ribolive@samurai.io', senha='a', telefone='123', sala='dcc08'),
+            dict(nome='Arthur Cruz', email='thuzax@samurai.io', senha='a', telefone='123', sala='dcc47'),
+            dict(nome='Breno Gomes', email='brenex@samurai.io', senha='a', telefone='123', sala='dcc33'),
         ]
         
         prof_idx = []
@@ -66,12 +66,12 @@ class TestDisciplina(unittest.TestCase):
             os.remove(os.path.join(UPLOAD_FOLDER, fl))
     
     def get_token(self):
-        user = User('admin', 'admin')
+        user = User('admin', 'admin', None)
         db.session.add(user)
         db.session.commit()
 
         res = self.app.post(
-            '/login',
+            '/api/login',
             data=json.dumps(dict(email='admin', password='admin')),
             content_type='application/json'
         )
@@ -131,8 +131,10 @@ class TestDisciplina(unittest.TestCase):
     def assert_disciplina_equal(self, recived_disciplina, sent_disciplina):
         self.assertEqual(recived_disciplina['tipo'], sent_disciplina['tipo'])
         self.assertEqual(recived_disciplina['nome'], sent_disciplina['nome'])
-        self.assertEqual(recived_disciplina['professor'], sent_disciplina['professor'])
-        self.assertEqual(recived_disciplina['documentos'], sent_disciplina['documentos'])
+        self.assertEqual(recived_disciplina['professor']['idx'], sent_disciplina['professor'])
+
+        docs_idx = [ x['idx'] for x in recived_disciplina['documentos'] ]
+        self.assertEqual(docs_idx, sent_disciplina['documentos'])
     
     def test__post_disciplina__200(self):
         p = self.disciplinas[0]

@@ -40,7 +40,7 @@ class SchemaExtensao(ma.ModelSchema):
         model = Extensao
 
 class SchemaDisciplina(ma.ModelSchema):
-    documentos = ma.Nested(SchemaDocumento)
+    documentos = ma.Nested(SchemaDocumento, many=True)
     professor = ma.Nested(SchemaProfessor)
 
     class Meta:

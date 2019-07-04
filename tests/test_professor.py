@@ -21,9 +21,9 @@ class TestProfessor(unittest.TestCase):
         self.schema_professores = SchemaProfessor(strict=True, many=True)
         
         self.professores = [
-            dict(nome='Gabriel Ribolive', email='ribolive@samurai.io', telefone='123', sala='dcc08'),
-            dict(nome='Arthur Cruz', email='thuzax@samurai.io', telefone='123', sala='dcc47'),
-            dict(nome='Breno Gomes', email='brenex@samurai.io', telefone='123', sala='dcc33'),
+            dict(nome='Gabriel Ribolive', email='ribolive@samurai.io', senha='a', telefone='123', sala='dcc08'),
+            dict(nome='Arthur Cruz', email='thuzax@samurai.io', senha='a', telefone='123', sala='dcc47'),
+            dict(nome='Breno Gomes', email='brenex@samurai.io', senha='a', telefone='123', sala='dcc33'),
         ]
 
     def tearDown(self):
@@ -31,12 +31,12 @@ class TestProfessor(unittest.TestCase):
         db.drop_all()
 
     def get_token(self):
-        user = User('admin', 'admin')
+        user = User('admin', 'admin', None)
         db.session.add(user)
         db.session.commit()
 
         res = self.app.post(
-            '/login',
+            '/api/login',
             data=json.dumps(dict(email='admin', password='admin')),
             content_type='application/json'
         )

@@ -56,12 +56,12 @@ class TestPublicacao(unittest.TestCase):
             os.remove(os.path.join(UPLOAD_FOLDER, fl))
     
     def get_token(self):
-        user = User('admin', 'admin')
+        user = User('admin', 'admin', None)
         db.session.add(user)
         db.session.commit()
 
         res = self.app.post(
-            '/login',
+            '/api/login',
             data=json.dumps(dict(email='admin', password='admin')),
             content_type='application/json'
         )
