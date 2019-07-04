@@ -5,3 +5,4 @@ from .schemas import SchemaDocumento
 from .schemas import SchemaPublicacao
 from .schemas import SchemaExtensao
 from .schemas import SchemaDisciplina
+from .schemas import SchemaProjeto

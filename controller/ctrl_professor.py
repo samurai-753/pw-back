@@ -39,10 +39,13 @@ class CtrlProfessor:
 
         return self.dump_professores(professores)
 
-    def get_professor(self, idx):
+    def get_professor(self, idx, dump=True):
         professor = Professor.query.get(idx)
 
-        return self.dump_professor(professor)
+        if dump:
+            return self.dump_professor(professor)
+        else:
+            return professor
     
     def delete_professor(self, idx):
         professor = Professor.query.get(idx)

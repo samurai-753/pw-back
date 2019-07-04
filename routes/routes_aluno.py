@@ -97,17 +97,11 @@ def post_aluno():
 
     try:
         data = request.get_json()
-        
-        nome = data['nome']
-        email = data['email']
-        telefone = data.get('telefone')
-        resumo = data['resumo']
-
-        aluno_dict = ctrl_aluno.add_aluno(nome, email, telefone, resumo)
+        aluno = ctrl_aluno.add_aluno(data)
 
         return jsonify(
             status=200,
-            data=aluno_dict
+            data=aluno
         )
     
     except KeyError as ke:

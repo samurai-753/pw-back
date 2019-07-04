@@ -88,14 +88,16 @@ def post_documento():
 
     @apiUse DocumentoExemplo
     """
+    try:
+        src_file = request.files['file']
+        doc = ctrl_documento.add_documento(src_file)
 
-    src_file = request.files['file']
-    doc = ctrl_documento.add_documento(src_file)
-
-    return jsonify(
-        status=200,
-        data=doc
-    )
+        return jsonify(
+            status=200,
+            data=doc
+        )
+    except:
+        return 'aaaaaaaaaaaaaa', 400
 
 
 @app_documento.route('/api/documento/<idx>', methods=['PATCH'])

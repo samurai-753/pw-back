@@ -14,14 +14,15 @@ class CtrlAluno:
         self.schema_alunos = SchemaAluno(strict=True, many=True)
         self.ctrl_pessoa = CtrlPessoa()
 
-    def add_aluno(self, nome, email, telefone, resumo):
-        pessoa = Pessoa(nome, email, telefone)
-        pessoa_dict = self.ctrl_pessoa.add_pessoa(pessoa)
-
-        aluno = Aluno(pessoa_dict['idx'])
-        aluno.resumo = resumo
-
+    def add_aluno(self, data):    
         try:
+            p = Pessoa(
+                data['nome'], data['email'], data['telefone']
+            )
+            pessoa = self.ctrl_pessoa.add_pessoa(p)
+
+            aluno = Aluno(pessoa['idx'])
+            aluno.resumo = data.get('resumo')
             aluno.idx = random.randint(0x0000, 0xffff)
             db.session.add(aluno)
             db.session.commit()
@@ -31,20 +32,20 @@ class CtrlAluno:
         except IntegrityError as e:
             db.session.rollback()
             
-            return dict(
-                error='IntegrityError',
-                message=str(e)
-            )
+            raise e
     
     def get_alunos(self):
         alunos = Aluno.query.order_by(Aluno.idx).all()
 
         return self.dump_alunos(alunos)
 
-    def get_aluno(self, idx):
+    def get_aluno(self, idx, dump=True):
         aluno = Aluno.query.get(idx)
 
-        return self.dump_aluno(aluno)
+        if dump:
+            return self.dump_aluno(aluno)
+        else:
+            return aluno
     
     def delete_aluno(self, idx):
         aluno = Aluno.query.get(idx)
