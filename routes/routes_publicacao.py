@@ -75,7 +75,7 @@ def get_publicacao_idx(idx):
 
 
 @app_publicacao.route('/api/publicacao', methods=['POST'])
-@jwt_required
+# @jwt_required
 def post_publicacao():
     """
     @api {post} /api/publicacao/ Adiciona Publicação
@@ -106,7 +106,7 @@ def post_publicacao():
 
 
 @app_publicacao.route('/api/publicacao/<idx>', methods=['PATCH'])
-@jwt_required
+# @jwt_required
 def update_publicacao(idx):
     """
     @api {patch} /api/publicacao/:id Atualiza Publicação
@@ -137,7 +137,7 @@ def update_publicacao(idx):
 
 
 @app_publicacao.route('/api/publicacao/<idx>', methods=['DELETE'])
-@jwt_required
+# @jwt_required
 def delete_publicacao(idx):
     """
     @api {delete} /api/publicacao/:id Deleta Publicação

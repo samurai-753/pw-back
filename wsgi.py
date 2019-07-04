@@ -9,6 +9,7 @@ app.register_blueprint(app_extensao)
 app.register_blueprint(app_documento)
 app.register_blueprint(app_publicacao)
 app.register_blueprint(app_disciplina)
+app.register_blueprint(app_projeto)
 
 
 if __name__ == '__main__':

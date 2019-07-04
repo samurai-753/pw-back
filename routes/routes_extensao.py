@@ -1,11 +1,12 @@
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import jwt_required
-from controller import CtrlExtensao
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from controller import CtrlExtensao, CtrlAccess
 from exception import ExceptionExtensaoCampoInvalido, ExceptionExtensaoNaoEncontrado
 
 
 app_extensao = Blueprint('extensao', __name__)
 ctrl_extensao = CtrlExtensao()
+ctrl_access = CtrlAccess()
 
 
 @app_extensao.route('/api/extensao', methods=['GET'])
@@ -76,7 +77,7 @@ def get_extensao_idx(idx):
 
 
 @app_extensao.route('/api/extensao', methods=['POST'])
-@jwt_required
+# @jwt_required
 def post_extensao():
     """
     @api {post} /api/extensao/ Adiciona Extensao
@@ -94,6 +95,8 @@ def post_extensao():
     data = request.get_json()
 
     try:
+        user = ctrl_access.get_user(get_jwt_identity())
+        data['pessoa'] = user.professor.detalhes.idx
         extensao = ctrl_extensao.add_extensao(data)
         return jsonify(
             status=200,
@@ -107,7 +110,7 @@ def post_extensao():
 
 
 @app_extensao.route('/api/extensao/<idx>', methods=['PATCH'])
-@jwt_required
+# @jwt_required
 def update_extensao(idx):
     """
     @api {patch} /api/extensao/:id Atualiza Extensao
@@ -138,7 +141,7 @@ def update_extensao(idx):
 
 
 @app_extensao.route('/api/extensao/<idx>', methods=['DELETE'])
-@jwt_required
+# @jwt_required
 def delete_extensao(idx):
     """
     @api {delete} /api/extensao/:id Deleta Extensao

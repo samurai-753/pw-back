@@ -21,6 +21,7 @@ class CtrlDocumento:
 
     def calc_md5_file(self, fname):
         md5 = hashlib.md5()
+        md5.update(fname.encode('utf8'))
         with open(fname, 'rb') as f:
             for chunk in iter(lambda: f.read(4096), b""):
                 md5.update(chunk)

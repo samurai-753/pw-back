@@ -1,9 +1,11 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import create_access_token, jwt_optional, get_jwt_identity
 from model import User
+from controller import CtrlAccess
 
 
 app_main = Blueprint('main', __name__)
+ctrl_access = CtrlAccess()
 
 
 @app_main.route('/')
@@ -15,7 +17,7 @@ def login():
     email = request.json.get('email', None)
     password = request.json.get('password', None)
 
-    user = User.query.filter_by(email=email).first()
+    user = ctrl_access.get_user(email)
     if not user or password != user.password:
         return jsonify(
             status=401,
