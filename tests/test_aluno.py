@@ -99,12 +99,12 @@ class TestAluno(unittest.TestCase):
     
     def test__post_aluno__400(self):
         p = self.alunos[1]
-        p.pop('resumo', None)
+        p.pop('nome', None)
         data = self.post_aluno(p)
 
         self.assertEqual(400, data['status'])
 
-        e = ExceptionAlunoCampoInvalido('\'resumo\'')
+        e = ExceptionAlunoCampoInvalido('\'nome\'')
         self.assertEqual(str(e), data['message'])
     
     def test__get_alunos__vazio(self):
