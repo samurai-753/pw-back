@@ -3,6 +3,7 @@ from model import *
 
 
 class SchemaPessoa(ma.ModelSchema):
+
     class Meta:
         model = Pessoa
 
@@ -39,15 +40,15 @@ class SchemaExtensao(ma.ModelSchema):
         model = Extensao
 
 class SchemaDisciplina(ma.ModelSchema):
-    # documentos = ma.Nested(SchemaDocumento)
-    # professor = ma.Nested(SchemaProfessor)
+    documentos = ma.Nested(SchemaDocumento, many=True)
+    professor = ma.Nested(SchemaProfessor)
 
     class Meta:
         model = Disciplina
 
 class SchemaProjeto(ma.ModelSchema):
-    # orientador = ma.Nested(SchemaProfessor)
-    # coorientador = ma.Nested(SchemaProfessor)
+    orientador = ma.Nested(SchemaProfessor)
+    coorientador = ma.Nested(SchemaProfessor)
 
     class Meta:
         model = Projeto

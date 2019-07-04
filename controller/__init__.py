@@ -6,3 +6,4 @@ from .ctrl_documento import CtrlDocumento
 from .ctrl_publicacao import CtrlPublicacao
 from .ctrl_disciplina import CtrlDisciplina
 from .ctrl_projeto import CtrlProjeto
+from .ctrl_access import CtrlAccess

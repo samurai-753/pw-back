@@ -80,7 +80,6 @@ def get_professor(idx):
 
 
 @app_professor.route('/api/professor', methods=['POST'])
-@jwt_required
 def post_professor():
     """
     @api {post} /api/professor/:id Adiciona professor
@@ -101,10 +100,11 @@ def post_professor():
     try:
         nome = data['nome']
         email = data['email']
+        senha = data['senha']
         telefone = data.get('telefone')
         sala = data['sala']
 
-        professor_dict = ctrl_professor.add_professor(nome, email, telefone, sala)
+        professor_dict = ctrl_professor.add_professor(nome, email, senha, telefone, sala)
 
         return jsonify(
             status=200,

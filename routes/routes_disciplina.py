@@ -1,11 +1,13 @@
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import jwt_required
-from controller import CtrlDisciplina
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from controller import CtrlDisciplina, CtrlAccess
 from exception import ExceptionDisciplinaNaoEncontrado, ExceptionDisciplinaCampoInvalido
+from model import Disciplina
 
 
 app_disciplina = Blueprint('disciplina', __name__)
 ctrl_disciplina = CtrlDisciplina()
+ctrl_access = CtrlAccess()
 
 
 @app_disciplina.route('/api/disciplina', methods=['GET'])
@@ -118,6 +120,7 @@ def update_disciplina(idx):
 
     @apiUse DisciplinaNotFoundError
     """
+    ctrl_access.verify(get_jwt_identity(), Disciplina, idx)
 
     try:
         data = request.get_json()

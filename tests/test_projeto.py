@@ -28,9 +28,9 @@ class TestProjeto(unittest.TestCase):
         self.schema_projetos = SchemaProjeto(strict=True, many=True)
         
         professores = [
-            dict(nome='Gabriel Ribolive', email='ribolive2@samurai.io', telefone='123', sala='dcc08'),
-            dict(nome='Arthur Cruz', email='thuzax2@samurai.io', telefone='123', sala='dcc47'),
-            dict(nome='Breno Gomes', email='brenex2@samurai.io', telefone='123', sala='dcc33'),
+            dict(nome='Gabriel Ribolive', email='ribolive2@samurai.io', senha='a', telefone='123', sala='dcc08'),
+            dict(nome='Arthur Cruz', email='thuzax2@samurai.io', senha='a', telefone='123', sala='dcc47'),
+            dict(nome='Breno Gomes', email='brenex2@samurai.io', senha='a', telefone='123', sala='dcc33'),
         ]
         
         prof_idx = []
@@ -64,12 +64,12 @@ class TestProjeto(unittest.TestCase):
             os.remove(os.path.join(UPLOAD_FOLDER, fl))
     
     def get_token(self):
-        user = User('admin', 'admin')
+        user = User('admin', 'admin', None)
         db.session.add(user)
         db.session.commit()
 
         res = self.app.post(
-            '/login',
+            '/api/login',
             data=json.dumps(dict(email='admin', password='admin')),
             content_type='application/json'
         )
@@ -137,8 +137,8 @@ class TestProjeto(unittest.TestCase):
 
     def assert_projeto_equal(self, recived_projeto, sent_projeto):
         self.assertEqual(recived_projeto['nome'], sent_projeto['nome'])
-        self.assertEqual(recived_projeto['orientador'], sent_projeto['orientador'])
-        self.assertEqual(recived_projeto['coorientador'], sent_projeto['coorientador'])
+        self.assertEqual(recived_projeto['orientador']['idx'], sent_projeto['orientador'])
+        self.assertEqual(recived_projeto['coorientador']['idx'], sent_projeto['coorientador'])
         self.assertEqual(set(recived_projeto['alunos']), set(sent_projeto['alunos']))
     
     def test__post_projeto__200(self):
