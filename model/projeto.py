@@ -24,15 +24,9 @@ class Projeto(db.Model):
         'Aluno', secondary=Projeto_Aluno, lazy='subquery'
     )
 
-    def __init__(self, nome, orientador_idx, alunos=[], idx=0, coorientador_idx=None):
-        self.idx = idx
-        self.nome = nome
-        self.orientador_idx = orientador_idx
-        self.coorientador_idx = coorientador_idx
-        self.alunos = alunos
-    
-    def __repr__(self):    
-        return '<ProjeotPesquisa idx={} nome={} {}/>'.format(
-            self.idx, self.nome
-        )
-
+    # def __init__(self, nome, orientador_idx, alunos=[], idx=0, coorientador_idx=None):
+    #     self.idx = idx
+    #     self.nome = nome
+    #     self.orientador_idx = orientador_idx
+    #     self.coorientador_idx = coorientador_idx
+    #     self.alunos = alunos
