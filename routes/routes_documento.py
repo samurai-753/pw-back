@@ -74,7 +74,7 @@ def get_documento_idx(idx):
 
 
 @app_documento.route('/api/documento', methods=['POST'])
-@jwt_required
+# @jwt_required
 def post_documento():
     """
     @api {post} /api/documento/ Adiciona Documento
@@ -96,7 +96,8 @@ def post_documento():
             status=200,
             data=doc
         )
-    except:
+    except Exception as e:
+        print(e)
         return 'aaaaaaaaaaaaaa', 400
 
 
