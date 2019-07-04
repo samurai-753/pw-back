@@ -93,6 +93,8 @@ def post_disciplina():
 
     try:
         data = request.get_json()
+        user = ctrl_access.get_user(get_jwt_identity())
+        data['professor'] = user.professor.idx
         dis = ctrl_disciplina.add_disciplina(data)
         return jsonify(
             status=200,
@@ -120,7 +122,6 @@ def update_disciplina(idx):
 
     @apiUse DisciplinaNotFoundError
     """
-    ctrl_access.verify(get_jwt_identity(), Disciplina, idx)
 
     try:
         data = request.get_json()

@@ -7,5 +7,5 @@ class CtrlAccess():
     def __init__(self):
         self.session = db.session
 
-    def verify(self, user, model, row):
-        pass
+    def get_user(self, email):
+        return User.query.filter_by(email=email).first()
