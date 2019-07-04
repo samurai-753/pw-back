@@ -44,3 +44,11 @@ class SchemaDisciplina(ma.ModelSchema):
 
     class Meta:
         model = Disciplina
+
+class SchemaProjeto(ma.ModelSchema):
+    # orientador = ma.Nested(SchemaProfessor)
+    # coorientador = ma.Nested(SchemaProfessor)
+
+    class Meta:
+        model = Projeto
+        

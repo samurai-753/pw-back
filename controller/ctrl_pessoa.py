@@ -22,10 +22,7 @@ class CtrlPessoa:
         except IntegrityError as e:
             db.session.rollback()
             
-            return dict(
-                error='IntegrityError',
-                message=str(e)
-            )
+            raise e
     
     def delete_pessoa(self, idx):
         pessoa = Pessoa.query.get(idx)

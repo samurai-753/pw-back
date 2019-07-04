@@ -54,10 +54,10 @@ class ExceptionProfessorNaoEncontrado(ExceptionNaoEncontrado):
         ExceptionNaoEncontrado.__init__(self, "Professor", campo, valor)
 
 
-class ExceptionProjetoPesquisaNaoEncontrado(ExceptionNaoEncontrado):
+class ExceptionProjetoNaoEncontrado(ExceptionNaoEncontrado):
 
     def __init__(self, campo, valor):
-        ExceptionNaoEncontrado.__init__(self, "Projeto de pesquisa", 
+        ExceptionNaoEncontrado.__init__(self, "Projeto", 
                                         campo, valor)
 
 

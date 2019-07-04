@@ -55,10 +55,10 @@ class ExceptionProfessorCampoInvalido(ExceptionCampoInvalido):
         ExceptionCampoInvalido.__init__(self, "Professor", campo)
 
 
-class ExceptionProjetoPesquisaCampoInvalido(ExceptionCampoInvalido):
+class ExceptionProjetoCampoInvalido(ExceptionCampoInvalido):
 
     def __init__(self, campo):
-        ExceptionCampoInvalido.__init__(self, "ProjetoPesquisa", campo)
+        ExceptionCampoInvalido.__init__(self, "Projeto", campo)
 
 
 class ExceptionPublicacaoCampoInvalido(ExceptionCampoInvalido):
