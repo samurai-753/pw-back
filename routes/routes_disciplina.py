@@ -152,11 +152,10 @@ def delete_disciplina(idx):
     """
 
     try:
-        data = request.get_json()
-        dis = ctrl_disciplina.delete_disciplina(idx)
+        ctrl_disciplina.delete_disciplina(idx)
         return jsonify(
             status=200,
-            data=dis
+            data={}
         )
     except ExceptionDisciplinaNaoEncontrado as e:
         return jsonify(

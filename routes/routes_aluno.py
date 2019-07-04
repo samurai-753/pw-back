@@ -79,7 +79,7 @@ def get_aluno_idx(idx):
 
 
 @app_aluno.route('/api/aluno', methods=['POST'])
-@jwt_required
+# @jwt_required
 def post_aluno():
     """
     @api {post} /api/aluno/:id Adiciona aluno
@@ -113,7 +113,7 @@ def post_aluno():
 
 
 @app_aluno.route('/api/aluno/<idx>', methods=['PATCH'])
-@jwt_required
+# @jwt_required
 def update_aluno(idx):
     """
     @api {put} /api/aluno/:id Atualiza aluno
@@ -152,7 +152,7 @@ def update_aluno(idx):
 
 
 @app_aluno.route('/api/aluno/<idx>', methods=['DELETE'])
-@jwt_required
+# @jwt_required
 def delete_aluno(idx):
     """
     @api {delete} /api/aluno/:id Deleta aluno

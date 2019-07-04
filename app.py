@@ -13,7 +13,7 @@ CORS(app)
 UPLOAD_FOLDER = './files'
 
 # Config the data base
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI', 'sqlite://')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI', 'sqlite:///db.sqlite3')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.config['JWT_SECRET_KEY'] = os.getenv('DB_URI', 'すごい')
