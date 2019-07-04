@@ -10,24 +10,26 @@ app_main = Blueprint('main', __name__)
 def home():
     return 'Hello there General Kenobi'
 
-@app_main.route('/login', methods=['POST'])
+@app_main.route('/api/login', methods=['POST'])
 def login():
     email = request.json.get('email', None)
     password = request.json.get('password', None)
 
-    if not email:
-        return jsonify({"msg": "Missing email parameter"}), 400
-    if not password:
-        return jsonify({"msg": "Missing password parameter"}), 400
-
     user = User.query.filter_by(email=email).first()
-    if not user:
-        return jsonify({"msg": "Email not found"}), 400
-    
-    access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token), 200
+    if not user or password != user.password:
+        return jsonify(
+            status=401,
+            message='Combinação de senha e email não encontrada'
+        )
 
-@app_main.route('/check', methods=['POST', 'GET'])
+    access_token = create_access_token(identity=email)
+
+    return jsonify(
+        access_token=access_token,
+        nome=user.professor.detalhes.nome
+    )
+
+@app_main.route('/api/check', methods=['POST', 'GET'])
 @jwt_optional
 def check():
     current_user = get_jwt_identity()

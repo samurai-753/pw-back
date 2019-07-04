@@ -1,6 +1,6 @@
 import random
 from app import db
-from model import Professor, Pessoa
+from model import Professor, Pessoa, User
 from schema import SchemaProfessor
 from sqlalchemy.exc import IntegrityError
 from .ctrl_pessoa import CtrlPessoa
@@ -13,7 +13,7 @@ class CtrlProfessor:
         self.schema_professores = SchemaProfessor(strict=True, many=True)
         self.ctrl_pessoa = CtrlPessoa()
 
-    def add_professor(self, nome, email, telefone, sala):
+    def add_professor(self, nome, email, senha, telefone, sala):
         pessoa = Pessoa(nome, email, telefone)
         pessoa_dict = self.ctrl_pessoa.add_pessoa(pessoa)
 
@@ -21,7 +21,9 @@ class CtrlProfessor:
 
         try:
             professor.idx = random.randint(0x0000, 0xffff)
+            user = User(email, senha, professor.idx)
             db.session.add(professor)
+            db.session.add(user)
             db.session.commit()
 
             return self.dump_professor(professor)
