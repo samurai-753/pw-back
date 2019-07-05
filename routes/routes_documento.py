@@ -102,7 +102,7 @@ def post_documento():
 
 
 @app_documento.route('/api/documento/<idx>', methods=['PATCH'])
-@jwt_required
+# @jwt_required
 def update_documento(idx):
     """
     @api {patch} /api/documento/:id Atualiza Documento
@@ -133,7 +133,7 @@ def update_documento(idx):
 
 
 @app_documento.route('/api/documento/<idx>', methods=['DELETE'])
-@jwt_required
+# @jwt_required
 def delete_documento(idx):
     """
     @api {delete} /api/documento/:id Deleta Projeto de Pesquisa

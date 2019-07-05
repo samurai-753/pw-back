@@ -119,7 +119,7 @@ def post_professor():
 
 
 @app_professor.route('/api/professor/<idx>', methods=['PATCH'])
-@jwt_required
+# @jwt_required
 def update_professor(idx):
     """
     @api {patch} /api/professor/:id Atualiza professor
@@ -158,7 +158,7 @@ def update_professor(idx):
 
 
 @app_professor.route('/api/professor/<idx>', methods=['DELETE'])
-@jwt_required
+# @jwt_required
 def delete_professor(idx):
     """
     @api {delete} /api/professor/:id Deleta professor

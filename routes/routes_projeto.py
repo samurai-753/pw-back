@@ -83,7 +83,7 @@ def get_projeto_idx(idx):
 
 
 @app_projeto.route('/api/projeto', methods=['POST'])
-@jwt_required
+# @jwt_required
 def post_projeto():
     """
     @api {post} /api/projeto/ Adiciona Projeto de pesquisa
@@ -111,7 +111,7 @@ def post_projeto():
 
 
 @app_projeto.route('/api/projeto/<idx>', methods=['PATCH'])
-@jwt_required
+# @jwt_required
 def update_projeto(idx):
     """
     @api {patch} /api/projeto/:id Atualiza Projeto de pesquisa
@@ -136,7 +136,7 @@ def update_projeto(idx):
 
 
 @app_projeto.route('/api/projeto/<idx>', methods=['DELETE'])
-@jwt_required
+# @jwt_required
 def delete_projeto(idx):
     """
     @api {delete} /api/projeto/:id Deleta Projeto de pesquisa
